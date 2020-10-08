@@ -1,0 +1,34 @@
+{
+  "General": {
+    "Hello": "Hello",
+    "Wait": "Please wait",
+    "Language": "Language"
+  },
+  "Nav": {
+    "Settings": "Settings",
+    "Map": "Map",
+    "MainMap": "Main Map",
+    "ManageMap": "Manage the map",
+    "Admin": "Admin"
+  },
+  "Form": {
+    "NotValid": "The form is not valid",
+    "Email": "E-mail",
+    "NotValidEmail": "Must be a valid e-mail",
+    "Name": "Name",
+    "Password": "Password",
+    "Login": "Login",
+    "Logout": "Logout",
+    "NoAccountYet": "No account yet?",
+    "SignUp": "Sign Up",
+    "Add": "Add",
+    "Label": "Label",
+    "MarkerType": "Marker type",
+    "PleaseSelectOne": "Please select one option",
+    "MarkerOptions": "Marker options",
+    "PleaseSelectOneOrMany": "Please select one or more option"
+  },
+  "Error": {
+    "NoConnectedOrRole": "You must be connected or have the right role."
+  }
+}

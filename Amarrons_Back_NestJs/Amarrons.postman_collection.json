@@ -1,0 +1,234 @@
+{
+	"info": {
+		"_postman_id": "115d1095-060a-4b61-9ecf-e45c8723600d",
+		"name": "Amarrons",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Find All Markers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:1444/markers?northEastLat=50.852481&northEastLng=4.416245&southWestLat=50.826882&southWestLng=4.362643",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1444",
+					"path": [
+						"markers"
+					],
+					"query": [
+						{
+							"key": "northEastLat",
+							"value": "50.852481"
+						},
+						{
+							"key": "northEastLng",
+							"value": "4.416245"
+						},
+						{
+							"key": "southWestLat",
+							"value": "50.826882"
+						},
+						{
+							"key": "southWestLng",
+							"value": "4.362643"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new Markers",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "user_token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjMsImNvZGUiOiIzIiwibGFiZWwiOiJhZG1pbiJ9LCJpZCI6MSwiaWF0IjoxNjAwNzYwNTkxfQ.ZOjNaXCe79h9-9Ng3mAnNEAChmIM-DaWAPgDfBShjZ8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"label\": \"Cinquantenaireke\",\r\n    \"lat\": 50.840255,\r\n    \"lng\": 4.394491,\r\n    \"markerType\": {\r\n        \"id\": 1,\r\n        \"code\": \"1\",\r\n        \"label\": \"Port\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1444/markers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1444",
+					"path": [
+						"markers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sign Up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"samy@amarronss.eu\",\r\n    \"password\": \"jeMeNoie\",\r\n    \"name\": \"Samy\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1444/users/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1444",
+					"path": [
+						"users",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"samy@amarrons.eu\",\r\n    \"password\": \"jeMeNoie\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1444/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1444",
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find All Marker Types",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "user_token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjEsImNvZGUiOiIxIiwibGFiZWwiOiJzaW1wbGUtdXNlciJ9LCJpZCI6NywiaWF0IjoxNTk4Njg4NTEyfQ.NN_3V3ELwJOJLOHKQijbBsuKFW7uGkflZoMX1n7ellk",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1444/markers/types",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1444",
+					"path": [
+						"markers",
+						"types"
+					],
+					"query": [
+						{
+							"key": "user_token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjEsImNvZGUiOiIxIiwibGFiZWwiOiJzaW1wbGUtdXNlciJ9LCJpZCI6NywiaWF0IjoxNTk4Njg4NTEyfQ.NN_3V3ELwJOJLOHKQijbBsuKFW7uGkflZoMX1n7ellk",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify user right",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "user_token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjEsImNvZGUiOiIxIiwibGFiZWwiOiJzaW1wbGUtdXNlciJ9LCJpZCI6NywiaWF0IjoxNTk4Njg4NTEyfQ.NN_3V3ELwJOJLOHKQijbBsuKFW7uGkflZoMX1n7ellk",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1444/users/verifyRight?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjEsImNvZGUiOiIxIiwibGFiZWwiOiJzaW1wbGUtdXNlciJ9LCJpZCI6NywiaWF0IjoxNTk4Njg4NTEyfQ.NN_3V3ELwJOJLOHKQijbBsuKFW7uGkflZoMX1n7ellk&authorizedRoles=3,2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1444",
+					"path": [
+						"users",
+						"verifyRight"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjEsImNvZGUiOiIxIiwibGFiZWwiOiJzaW1wbGUtdXNlciJ9LCJpZCI6NywiaWF0IjoxNTk4Njg4NTEyfQ.NN_3V3ELwJOJLOHKQijbBsuKFW7uGkflZoMX1n7ellk"
+						},
+						{
+							"key": "authorizedRoles",
+							"value": "3,2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find All Marker Options",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "user_token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjEsImNvZGUiOiIxIiwibGFiZWwiOiJzaW1wbGUtdXNlciJ9LCJpZCI6NywiaWF0IjoxNTk4Njg4NTEyfQ.NN_3V3ELwJOJLOHKQijbBsuKFW7uGkflZoMX1n7ellk",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1444/markers/options",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1444",
+					"path": [
+						"markers",
+						"options"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

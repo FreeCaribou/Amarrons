@@ -1,0 +1,73 @@
+.loader {
+  --spinner-color: var(--ion-color-secondary);
+  color: var(--ion-color-secondary);
+}
+
+.loader .loading-wrapper {
+  background: var(--ion-color-primary);
+}
+
+ion-tab-button {
+  --color-selected: var(--ion-color-secondary);
+}
+
+.container {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.padding-not-stick-edges {
+  padding: 0px 33px;
+}
+
+.margin-top-small {
+  margin-top: 25px;
+}
+
+.map{width: 100%; height: 100%}
+
+.map .leaflet-container{
+  height: 100%;
+  width: 100%;
+  position: none;
+}
+
+.error-message-display {
+  display: flex;
+  padding-left: 16px;
+  padding-top: 5px;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.error-message-display-empty  {
+  height: 19px;
+}
+
+.input-error ion-label {
+  --color: var(--ion-color-danger) !important
+}
+
+.input-error {
+  --border-color: var(--ion-color-danger) !important
+}
+
+/* Animation for the map loader */
+@keyframes spin {
+  from {
+      transform:rotate(0deg);
+  }
+  to {
+      transform:rotate(360deg);
+  }
+}
+.map-loader {
+  animation-name: spin;
+  animation-duration: 4000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
