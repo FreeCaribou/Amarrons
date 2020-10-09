@@ -89,7 +89,7 @@ const Login: React.FC = () => {
   }
 
   return (
-    <div className="container padding-not-stick-edges">
+    <div className="padding-not-stick-edges">
       <form>
 
         {!user

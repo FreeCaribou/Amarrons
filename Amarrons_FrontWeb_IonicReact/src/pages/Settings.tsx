@@ -17,8 +17,7 @@ const Settings: React.FC = () => {
       </IonHeader>
       <IonContent>
         <ChangeLanguage />
-      </IonContent>
-      <IonContent>
+        <div className="separator"></div>
         <Login />
       </IonContent>
     </IonPage>

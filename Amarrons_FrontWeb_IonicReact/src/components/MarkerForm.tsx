@@ -68,16 +68,19 @@ const MarkerForm: React.FC<Props> = (props) => {
   }
 
   return (
-    <div className="container padding-not-stick-edges">
+    <div className="padding-not-stick-edges">
       <IonGrid>
 
         <IonRow>
-          <IonCol>
+          <IonCol size="6">
             <TextInput name={t("Form.Label")} value={label} setValue={setLabel} required={true} isValid={validLabel()} data-testid="text-input-label" />
           </IonCol>
-          <IonCol>
+          <IonCol size="6">
             <Dropdown name={t("Form.MarkerType")} value={markerType} options={markerTypes} setValue={setMarkerType} isValid={validMarkerType()} required={true} />
           </IonCol>
+        </IonRow>
+
+        <IonRow>
           <IonCol>
             <Dropdown name={t("Form.MarkerOptions")} value={markerOptionSelected} options={markerOptions} setValue={setMarkerOptionSelected} multiple={true} />
           </IonCol>

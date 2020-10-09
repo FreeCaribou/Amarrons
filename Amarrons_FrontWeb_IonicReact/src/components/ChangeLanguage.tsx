@@ -3,7 +3,6 @@ import { IonSelect, IonSelectOption, IonLabel, IonItem } from '@ionic/react';
 import LanguageContext from '../hooks/useLanguageContext';
 
 import { useTranslation } from 'react-i18next';
-import Dropdown from './Dropdown';
 
 const languagesList = [
   {
@@ -28,7 +27,7 @@ const ChangeLanguage: React.FC = () => {
   const [languages] = useState(languagesList);
 
   return (
-    <div className="container padding-not-stick-edges">
+    <div className="padding-not-stick-edges">
       <IonItem>
         <IonLabel>{t("General.Language")}</IonLabel>
         <IonSelect value={currentLanguage} onIonChange={e => setCurrentLanguage(e.detail.value)} interface={'popover'}>
