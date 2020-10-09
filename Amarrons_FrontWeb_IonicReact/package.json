@@ -11,7 +11,6 @@
   "dependencies": {
     "@capacitor/android": "^2.4.0",
     "@capacitor/core": "2.4.0",
-    "@ionic/app-scripts": "2.1.4",
     "@ionic/pwa-elements": "^3.0.1",
     "@ionic/react": "^5.0.7",
     "@ionic/react-hooks": "0.0.8",
@@ -74,6 +73,7 @@
   },
   "devDependencies": {
     "@capacitor/cli": "2.4.0",
+    "@ionic/app-scripts": "^3.2.4",
     "@testing-library/react": "^9.5.0"
   },
   "description": "An Ionic project"
