@@ -151,7 +151,7 @@ const App: React.FC = () => {
                 <IonTabs>
                   <IonRouterOutlet>
                     <Route path="/:tab(map)" component={MainMap} exact={true} />
-                    <Route path="/:tab(map)/new-marker/:lat/:lng/:zoom" component={ManageMap} />
+                    <Route path="/:tab(map)/new-marker/:lat/:lng/:zoom/:point" component={ManageMap} />
                     <Route path="/:tab(options)" component={Settings} exact={true} />
                     <Route path="/:tab(admin)" component={Admin} exact={true} />
                     <Route exact path="/" render={() => <Redirect to="/map" />} />

@@ -11,8 +11,10 @@ interface Props extends RouteComponentProps<{
   lat: string;
   lng: string;
   zoom: string;
+  point: string; // 0 to say no we don't want to begin with marker - 1 to say yes
 }> { }
 
+// TODO can move (or create) the new point
 const ManageMap: React.FC<Props> = ({ match, history }) => {
 
   const { t } = useTranslation();
@@ -26,8 +28,10 @@ const ManageMap: React.FC<Props> = ({ match, history }) => {
     console.log(match);
     if (!map) {
       map = createMap("manageMapId", +match.params.lat, +match.params.lng, +match.params.zoom);
-      const markPoint = new DataMarker([+match.params.lat, +match.params.lng], { id: 0 });
-      markPoint.addTo(map);
+      if (match.params.point == '1') {
+        const markPoint = new DataMarker([+match.params.lat, +match.params.lng], { id: 0 });
+        markPoint.addTo(map);
+      }
     }
   })
 

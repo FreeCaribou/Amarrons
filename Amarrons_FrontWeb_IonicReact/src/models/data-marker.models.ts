@@ -6,7 +6,6 @@ export class DataMarker extends Leaflet.Marker {
 
   constructor(latLng: L.LatLngExpression, data: any, options?: L.MarkerOptions) {
     super(latLng, options);
-    console.log('option?', options)
     this.setData(data);
   }
 

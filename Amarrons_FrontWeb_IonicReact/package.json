@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@capacitor/android": "^2.4.0",
-    "@capacitor/core": "2.4.0",
+    "@capacitor/core": "^2.4.0",
+    "@ionic-native/core": "^5.28.0",
+    "@ionic-native/geolocation": "^5.28.0",
     "@ionic/pwa-elements": "^3.0.1",
     "@ionic/react": "^5.0.7",
     "@ionic/react-hooks": "0.0.8",
@@ -35,6 +37,7 @@
     "@types/yup": "^0.29.6",
     "axios": "^0.20.0",
     "body-parser": "^1.19.0",
+    "cordova-plugin-geolocation": "^4.0.2",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -72,7 +75,7 @@
     ]
   },
   "devDependencies": {
-    "@capacitor/cli": "2.4.0",
+    "@capacitor/cli": "^2.4.0",
     "@ionic/app-scripts": "^3.2.4",
     "@testing-library/react": "^9.5.0"
   },
