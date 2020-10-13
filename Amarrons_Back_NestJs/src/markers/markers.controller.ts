@@ -1,4 +1,4 @@
-import { Controller, Get, Query, Body, Post } from '@nestjs/common';
+import { Controller, Get, Query, Body, Post, Headers } from '@nestjs/common';
 import { MarkersService } from './markers.service';
 import { MarkerPositionSearchDto } from './dto/marker-position-search.dto';
 import { Auth } from '../common/decorators/auth.decorator';
@@ -19,10 +19,11 @@ export class MarkersController {
     return this.markersService.findAll(markerPositionSearchDto);
   }
 
-  @Auth(RoleEnum.Admin)
+  @Auth(RoleEnum.Connected)
   @Post()
-  create(@Body() createMarkerDto: CreateMarkerDto) {
-    return this.markersService.create(createMarkerDto);
+  create(@Body() createMarkerDto: CreateMarkerDto, @Headers() header) {
+    console.log(header);
+    return this.markersService.create(createMarkerDto, header.user_token);
   }
 
   @Auth(RoleEnum.Connected)

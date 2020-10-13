@@ -29,10 +29,15 @@ export class MarkersService {
     })
   }
 
-  async create(createMarkerDto: CreateMarkerDto) {
+  // TODO depending on the user role, the create will be different
+  // Role 0 or 1, create proposal marker
+  // Role 2 or 3, create marker
+  async create(createMarkerDto: CreateMarkerDto, userToken) {
+    const jwt = require('jsonwebtoken');
+    const user = jwt.verify(userToken, process.env.JWT_SECURITY_KEY);
+    console.log(user);
     const marker = this.markerRepository.create(createMarkerDto);
     return this.markerRepository.save(marker);
-
   }
 
   findAllMarkerTypes() {

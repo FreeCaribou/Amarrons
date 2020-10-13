@@ -1,4 +1,5 @@
-import { IsString, IsNumber, IsNotEmpty } from "class-validator";
+import { IsString, IsNumber, IsNotEmpty, IsOptional } from "class-validator";
+import { MarkerOption } from "../entities/marker-option.entity";
 import { MarkerType } from "../entities/marker-type.entity";
 
 export class CreateMarkerDto {
@@ -13,4 +14,7 @@ export class CreateMarkerDto {
 
   @IsNotEmpty()
   readonly markerType: MarkerType;
+
+  @IsOptional()
+  readonly markerOptions: MarkerOption[];
 }

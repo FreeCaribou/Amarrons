@@ -55,7 +55,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"label\": \"Cinquantenaireke\",\r\n    \"lat\": 50.840255,\r\n    \"lng\": 4.394491,\r\n    \"markerType\": {\r\n        \"id\": 1,\r\n        \"code\": \"1\",\r\n        \"label\": \"Port\"\r\n    }\r\n}",
+					"raw": "{\r\n    \"label\": \"Cinquantenairekeleleaaa\",\r\n    \"lat\": 50.840255,\r\n    \"lng\": 4.394491,\r\n    \"markerType\": {\r\n        \"id\": 2\r\n    },\r\n    \"markerOptions\": [\r\n        {\r\n            \"id\": 1\r\n        },\r\n        {\r\n            \"id\": 2\r\n        }\r\n    ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

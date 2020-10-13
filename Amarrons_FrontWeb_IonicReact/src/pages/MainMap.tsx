@@ -133,7 +133,6 @@ const MainMap: React.FC<RouteComponentProps> = ({ history }) => {
         }
         const markPoint = new DataMarker([e.lat, e.lng], { id: e.id }, { icon: icon });
         markPoint.bindPopup(`<p>${e.label}</p>`);
-        markPoint.on('click', (e: any) => { onMarkerClick(e); });
         markPoint.on('contextmenu', (e: any) => { onMarkerLongClick(e) });
         markPoint.addTo(map);
       });
@@ -200,18 +199,9 @@ const MainMap: React.FC<RouteComponentProps> = ({ history }) => {
     loadMarker();
   }
 
-  const onMarkerClick: any = (e: any) => {
-    console.log(`click marker ${e.target.data.id}`, e);
-  }
-
-  // TODO
+  // TODO with some role, do some thing
   const onMarkerLongClick: any = (e: any) => {
     console.log(`long click marker ${e.target.data.id} to modify if right role`, e);
-  }
-
-  const panTo = (position: any) => {
-    console.log(map);
-    map.panTo([position.coords.latitude, position.coords.longitude]);
   }
 
   const onGpsFabClick: any = () => {
