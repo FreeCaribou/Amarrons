@@ -228,6 +228,92 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Find All Users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "user_token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjMsImNvZGUiOiIzIiwibGFiZWwiOiJhZG1pbiJ9LCJpZCI6MSwiaWF0IjoxNjAwNzYwNTkxfQ.ZOjNaXCe79h9-9Ng3mAnNEAChmIM-DaWAPgDfBShjZ8",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1444/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1444",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find All Roles",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "user_token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjMsImNvZGUiOiIzIiwibGFiZWwiOiJhZG1pbiJ9LCJpZCI6MSwiaWF0IjoxNjAwNzYwNTkxfQ.ZOjNaXCe79h9-9Ng3mAnNEAChmIM-DaWAPgDfBShjZ8",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1444/users/roles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1444",
+					"path": [
+						"users",
+						"roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User Role",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "user_token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjMsImNvZGUiOiIzIiwibGFiZWwiOiJhZG1pbiJ9LCJpZCI6MSwiaWF0IjoxNjAwNzYwNTkxfQ.ZOjNaXCe79h9-9Ng3mAnNEAChmIM-DaWAPgDfBShjZ8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"email\": \"samy@amarrons.eu\",\r\n    \"name\": \"Samy\",\r\n    \"role\": {\r\n        \"id\": 2\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1444/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1444",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}

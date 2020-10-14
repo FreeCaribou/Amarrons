@@ -8,6 +8,7 @@ import { EncryptionService } from '../encryption/encryption.service';
 import { Role } from './entities/role.entity';
 import { VerifyRightDto } from './dto/verify-right.dto';
 import { RoleEnum } from '../common/role.enum';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -71,11 +72,11 @@ export class UsersService {
   }
 
   findAllUsers() {
-    return this.userRepository.find({ relations: ['role'] });
+    return this.userRepository.find({ relations: ['role'], select: ['id', 'role', 'name', 'email'] });
   }
 
   findUserByEmail(email: string) {
-    return this.userRepository.findOne({ email: email }, { relations: ['role'] });
+    return this.userRepository.findOne({ email: email }, { relations: ['role'], select: ['id', 'role', 'name', 'email'] });
   }
 
   findRoleByCode(code: string) {
@@ -108,6 +109,19 @@ export class UsersService {
     }
 
     return { isAuthorized };
+  }
+
+  findAllRoles() {
+    return this.roleRepository.find();
+  }
+
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    let user = await this.userRepository.findOne(id, { select: ['id', 'role', 'name', 'email'] });
+    if (!user) {
+      throw new HttpException({ message: ['The user didn\'t exist'] }, HttpStatus.NOT_FOUND);
+    }
+    user.role = updateUserDto.role;
+    return this.userRepository.save(user);
   }
 
 }
