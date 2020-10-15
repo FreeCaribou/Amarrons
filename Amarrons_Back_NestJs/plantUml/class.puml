@@ -4,6 +4,8 @@ object Marker {
   label: varchar
   lat: double
   lng: double
+  suggestedBy: object
+  validatedBy: object
 }
 
 object MarkerType {
@@ -32,11 +34,6 @@ object Role {
 User "0..*" -- "1" Role
 Marker "0..*" -- "1" MarkerType
 Marker "0..*" -- "0..*" MarkerOption
+Marker "0..*" -- "1" User
 
-' Relationship "0..*" -- "1" User_RelationshipType
-' RelationshipType "1" -- "0..*" User_RelationshipType
-' User_RelationshipType "0..*" -- "1" User
-' Payment "0..*" -- "1" Relationship
-' Payment "0..*" -- "1" User
-' Payment "1" -- "0..*" ReminderDate
 @enduml
