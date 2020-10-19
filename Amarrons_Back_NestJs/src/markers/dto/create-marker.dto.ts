@@ -1,5 +1,5 @@
 import { IsString, IsNumber, IsNotEmpty, IsOptional } from "class-validator";
-import { User } from "src/users/entities/user.entity";
+import { User } from "../../users/entities/user.entity";
 import { MarkerOption } from "../entities/marker-option.entity";
 import { MarkerType } from "../entities/marker-type.entity";
 

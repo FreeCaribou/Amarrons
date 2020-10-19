@@ -19,6 +19,9 @@ async function eraseAll() {
 describe('AppController (e2e)', () => {
   let app: INestApplication;
 
+  let adminToken;
+  let simpleUserToken;
+
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
@@ -66,6 +69,65 @@ describe('AppController (e2e)', () => {
     });
 
   });
+
+  describe('Users connection', () => {
+    it('(POST) /users/login With one admin', async () => {
+      const response = await request(app.getHttpServer())
+        .post('/users/login')
+        .send({ "email": "samy@amarrons.eu", "password": "jeMeNoie" })
+        .expect(201);
+
+      adminToken = response.body.token;
+
+      expect(adminToken).toMatch(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/);
+    });
+
+    it('(POST) /users/login With one simple user', async () => {
+      const response = await request(app.getHttpServer())
+        .post('/users/login')
+        .send({ "email": "raoul@amarrons.eu", "password": "jeMeNoie" })
+        .expect(201);
+
+      simpleUserToken = response.body.token;
+      expect(simpleUserToken).toMatch(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/);
+    });
+
+    it('(GET) /verifyRight Access without token denied', () => {
+      return request(app.getHttpServer())
+        .get(`/users/verifyRight?token=${adminToken}&authorizedRoles=3`)
+        .expect(403);
+    });
+
+    it('(GET) /verifyRight Admin access to admin zone', async () => {
+      const response = await request(app.getHttpServer())
+        .get(`/users/verifyRight?token=${adminToken}&authorizedRoles=3`)
+        .set('user_token', adminToken)
+        .expect(200);
+
+      const resources = response.body;
+      expect(resources.isAuthorized).toBe(true);
+    });
+
+    it('(GET) /verifyRight Simple user access to admin zone, denied', async () => {
+      const response = await request(app.getHttpServer())
+        .get(`/users/verifyRight?token=${simpleUserToken}&authorizedRoles=3`)
+        .set('user_token', simpleUserToken)
+        .expect(200);
+
+      const resources = response.body;
+      expect(resources.isAuthorized).toBe(false);
+    });
+
+    it('(GET) /verifyRight Simple user access to connected zone', async () => {
+      const response = await request(app.getHttpServer())
+        .get(`/users/verifyRight?token=${simpleUserToken}&authorizedRoles=0`)
+        .set('user_token', simpleUserToken)
+        .expect(200);
+
+      const resources = response.body;
+      expect(resources.isAuthorized).toBe(true);
+    });
+  })
 
   describe('Marker Test', () => {
     it('(GET) /markers No validate request', () => markerWithoutPosition(app.getHttpServer()));

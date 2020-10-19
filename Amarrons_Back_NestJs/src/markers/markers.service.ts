@@ -6,7 +6,7 @@ import { MarkerPositionSearchDto } from './dto/marker-position-search.dto';
 import { MarkerType } from './entities/marker-type.entity';
 import { CreateMarkerDto } from './dto/create-marker.dto';
 import { MarkerOption } from './entities/marker-option.entity';
-import { deleteSensitiveDataFromMarker } from 'src/common/utils';
+import { deleteSensitiveDataFromMarker } from '../common/utils';
 
 @Injectable()
 export class MarkersService {

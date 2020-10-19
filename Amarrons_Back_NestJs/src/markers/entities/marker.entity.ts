@@ -1,4 +1,4 @@
-import { User } from "src/users/entities/user.entity";
+import { User } from "../../users/entities/user.entity";
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinTable, ManyToMany } from "typeorm";
 import { MarkerOption } from "./marker-option.entity";
 import { MarkerType } from "./marker-type.entity";

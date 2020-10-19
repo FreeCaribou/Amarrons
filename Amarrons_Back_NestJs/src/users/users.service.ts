@@ -54,7 +54,7 @@ export class UsersService {
   }
 
   async login(loginUserDto: LoginUserDto) {
-    const user = await this.findUserByEmail(loginUserDto.email);
+    const user = await this.findUserByEmailAdmin(loginUserDto.email);
 
     // the user exist?
     if (!user) {
@@ -77,6 +77,10 @@ export class UsersService {
 
   findUserByEmail(email: string) {
     return this.userRepository.findOne({ email: email }, { relations: ['role'], select: ['id', 'role', 'name', 'email'] });
+  }
+
+  findUserByEmailAdmin(email: string) {
+    return this.userRepository.findOne({ email: email }, { relations: ['role'] });
   }
 
   findRoleByCode(code: string) {
