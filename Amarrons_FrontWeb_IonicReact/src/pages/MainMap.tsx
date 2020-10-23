@@ -12,7 +12,6 @@ import { add, locate, sync } from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import ErrorMessageContext from '../hooks/useErrorMessageContext';
-import LoaderContext from '../hooks/useLoaderContext';
 
 // TODO find an artist for better icon
 let anchorIcon = Leaflet.icon({
@@ -46,20 +45,13 @@ const MainMap: React.FC<RouteComponentProps> = ({ history }) => {
 
   let wait = '';
 
-  useEffect(() => {
-    console.log('hello', user);
-  }, [user]);
-
   useIonViewWillEnter(() => {
-    console.log('ion enter');
     setShowMapLoader(true);
     let positionWait: any;
     Geolocation.getCurrentPosition().then(data => {
       positionWait = data;
     }).catch(error => {
-      console.log(error)
     }).finally(() => {
-
       if (positionWait) {
         currentPosition = { lat: positionWait.coords.latitude, lng: positionWait.coords.longitude };
         updatePositionMarker();
@@ -81,37 +73,29 @@ const MainMap: React.FC<RouteComponentProps> = ({ history }) => {
   });
 
   useIonViewWillLeave(() => {
-    console.log('good bye', wait);
+    // Stop the watching position (thanks for the battery)
     Plugins.Geolocation.clearWatch({ id: wait });
   })
 
   const loadMap: any = async () => {
-    console.log('init map', map);
     map = createMap(
       "mapId",
       currentPosition.lat,
       currentPosition.lng,
       15,
-      (e: any) => { onMapClick(e); },
+      null,
       (e: any) => { onMapMove(e); },
       (e: any) => { onMapLongClick(e) }
     );
 
     setStateMap(map);
-
-    // onGpsFabClick();
-
     loadMarker();
   }
 
   const loadMarker: any = async () => {
-    console.log('load the markers', map);
     const bounds = map.getBounds();
-    console.log('bounds', bounds, bounds.getNorthEast(), bounds.getSouthWest());
-
     // must delete the old marker (but not the tileLayer!)
     map.eachLayer(function (layer) {
-      console.log('one of the layer', layer, layer.getPopup());
       if (layer.getPopup()) {
         map.removeLayer(layer);
       }
@@ -132,13 +116,13 @@ const MainMap: React.FC<RouteComponentProps> = ({ history }) => {
             break;
         }
         const markPoint = new DataMarker([e.lat, e.lng], { id: e.id }, { icon: icon });
+        // TODO better pop-up with the option
         markPoint.bindPopup(`<p>${e.label}</p>`);
         markPoint.on('contextmenu', (e: any) => { onMarkerLongClick(e) });
         markPoint.addTo(map);
       });
       setStateMap(map);
     }).catch((error: any) => {
-      // TODO must think of a different way to show potentiel error message for the map?
       setErrorMessage(error.response);
     }).finally(() => {
       setShowMapLoader(false);
@@ -147,14 +131,12 @@ const MainMap: React.FC<RouteComponentProps> = ({ history }) => {
 
   const watchPositionChange: any = async () => {
     wait = Plugins.Geolocation.watchPosition({ enableHighAccuracy: true }, async (position, error) => {
-      console.log('watchouille', position, error);
       compareOldAndNewPosition(position, error);
     });
   }
 
   const compareOldAndNewPosition: any = async (position: any) => {
     const newPosition = { lat: position.coords.latitude, lng: position.coords.longitude };
-    console.log('compare position', JSON.stringify(currentPosition), JSON.stringify(newPosition))
     if (currentPosition != newPosition) {
       currentPosition = newPosition;
       updatePositionMarker();
@@ -163,9 +145,7 @@ const MainMap: React.FC<RouteComponentProps> = ({ history }) => {
 
   // TODO make a more relevant marker for the user position
   const updatePositionMarker: any = () => {
-    console.log('update the user marker position');
     if (map) {
-
       // delete the old user position marker
       map.eachLayer(function (layer: any) {
         if (layer.data && layer.data.userPosition) {
@@ -179,13 +159,7 @@ const MainMap: React.FC<RouteComponentProps> = ({ history }) => {
     }
   }
 
-  const onMapClick: any = (e: any) => {
-    console.log('click', e);
-  }
-
   const onMapLongClick: any = (e: any) => {
-    console.log('long click', e);
-    console.log('user?', userToken);
     if (userToken) {
       history.push(`/map/new-marker/${e.latlng.lat}/${e.latlng.lng}/${map.getZoom()}/1`);
     } else {
@@ -195,26 +169,22 @@ const MainMap: React.FC<RouteComponentProps> = ({ history }) => {
   }
 
   const onMapMove: any = (e: any) => {
-    console.log('move', e);
     loadMarker();
   }
 
-  // TODO with some role, do some thing
+  // TODO with some role, do some thing, go tu update mode
   const onMarkerLongClick: any = (e: any) => {
     console.log(`long click marker ${e.target.data.id} to modify if right role`, e);
   }
 
   const onGpsFabClick: any = () => {
-    console.log('go to my position');
     let positionWait;
     setShowMapLoader(true);
     Geolocation.getCurrentPosition().then(data => {
       positionWait = data;
       compareOldAndNewPosition(positionWait);
-      // panTo(positionWait);
       stateMap.panTo([positionWait.coords.latitude, positionWait.coords.longitude]);
     }).catch(error => {
-      console.log(error)
     }).finally(() => {
       setShowMapLoader(false);
     });
@@ -222,12 +192,6 @@ const MainMap: React.FC<RouteComponentProps> = ({ history }) => {
 
   return (
     <IonPage>
-
-      {/* <IonHeader translucent={true}>
-        <IonToolbar color="primary">
-          <IonTitle>{t("Nav.MainMap")}</IonTitle>
-        </IonToolbar>
-      </IonHeader> */}
 
       <IonContent>
         <div id="mapId" className="map" slot="fixed">

@@ -3,10 +3,11 @@ import { IonButton, IonIcon } from '@ionic/react';
 import { person, personAdd, power } from 'ionicons/icons';
 import { UserService } from '../services/users/user.service';
 import UserContext from '../hooks/useUserContext';
-import TextInput from './TextInput';
+import TextInput from './forms/TextInput';
 import LoaderContext from '../hooks/useLoaderContext';
 import ErrorMessageContext from '../hooks/useErrorMessageContext';
 import { useTranslation } from 'react-i18next';
+import { validSimpleRequiredTextInput } from '../utils/ValidForm';
 
 const Login: React.FC = () => {
 
@@ -55,7 +56,6 @@ const Login: React.FC = () => {
   }
 
   const connectionSuccess: any = (data: any) => {
-    console.log('connection', data);
     localStorage.setItem('user_token', data.data.token);
     setUser(data.data);
   }
@@ -64,27 +64,26 @@ const Login: React.FC = () => {
     setUser(null as any);
     localStorage.removeItem('user_token');
     setErrorMessage(error.response);
-    console.log('error', error.response);
   }
 
   // TODO verify email pattern
-  const validEmail: any = () => {
-    return email !== null && email !== '';
+  const validEmail = () => {
+    return validSimpleRequiredTextInput(email);
   }
 
-  const validPassword: any = () => {
-    return password !== null && password !== '';
+  const validPassword = () => {
+    return validSimpleRequiredTextInput(password);
   }
 
-  const validName: any = () => {
-    return name !== null && name !== '';
+  const validName = () => {
+    return validSimpleRequiredTextInput(name);
   }
 
-  const validLoginButton: any = () => {
+  const validLoginButton = () => {
     return validEmail() && validPassword();
   }
 
-  const validSignUpButton: any = () => {
+  const validSignUpButton = () => {
     return validLoginButton() && validName();
   }
 

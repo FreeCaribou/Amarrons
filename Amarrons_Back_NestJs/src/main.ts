@@ -4,6 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { getConnection } from 'typeorm';
 import { fullInDbForDevMode } from './common/migration-array-string';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { readImportReferenceDataFile } from './common/import-reference-data';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -39,6 +40,9 @@ async function bootstrap() {
       await connection.query(e);
     }
     console.log('DB op');
+  }
+  else if (process.env.NODE_ENV == 'prod') {
+    await readImportReferenceDataFile();
   }
 
 }

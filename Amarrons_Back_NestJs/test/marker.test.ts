@@ -1,18 +1,19 @@
 import * as request from 'supertest';
 
-export function markerWithoutPosition(app) {
-  return request(app)
+export async function markerWithoutPosition(app) {
+  const response = await request(app)
     .get('/markers')
     .expect(400);
+  expect(response.body.message).toBeInstanceOf(Array);
 }
 
-export function markerWithPositionAndOneMarker(app) {
-  return request(app)
+export async function markerWithPositionAndOneMarker(app) {
+  const response = await request(app)
     .get('/markers?northEastLat=50.857411&northEastLng=4.411634&southWestLat=50.822708&southWestLng=4.343904')
-    .expect(200)
-    .then(({ body }) => {
-      expect(body[0].label).toEqual('Cinquantenaire');
-    })
+    .expect(200);
+
+  const body = response.body;
+  expect(body[0].label).toEqual('Cinquantenaire');
 }
 
 

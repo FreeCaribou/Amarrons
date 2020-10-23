@@ -2,12 +2,12 @@ import React, { useState, useContext } from 'react';
 import { useIonViewDidEnter, IonGrid, IonRow, IonCol, IonButton, IonIcon } from '@ionic/react';
 import { useTranslation } from 'react-i18next';
 import { add } from 'ionicons/icons';
-import TextInput from './TextInput';
+import TextInput from './forms/TextInput';
 import { MarkerService } from '../services/markers/marker.service';
-import Dropdown from './Dropdown';
+import Dropdown from './forms/Dropdown';
 import LoaderContext from '../hooks/useLoaderContext';
 import ErrorMessageContext from '../hooks/useErrorMessageContext';
-import { RouteComponentProps } from 'react-router';
+import { validSimpleRequiredTextInput } from '../utils/ValidForm';
 
 export interface Props {
   position: any,
@@ -32,7 +32,6 @@ const MarkerForm: React.FC<Props> = (props) => {
   useIonViewDidEnter(async () => {
     setIsLoading(true);
     Promise.all([markerService.GetMarkerTypes(), markerService.GetMarkerOptions()]).then(data => {
-      console.log('data', data);
       setMarkerTypes(data[0].data);
       setMarkerOptions(data[1].data);
     }).catch((error) => {
@@ -43,7 +42,7 @@ const MarkerForm: React.FC<Props> = (props) => {
   });
 
   const validLabel = () => {
-    return label != null && label.trim() != '';
+    return validSimpleRequiredTextInput(label);
   }
 
   const validMarkerType = () => {
@@ -55,13 +54,11 @@ const MarkerForm: React.FC<Props> = (props) => {
   }
 
   const clickAddButton = async () => {
-    console.log('add', props.position, markerType, markerOptionSelected);
     setIsLoading(true);
     markerService.CreateMarker({ lat: props.position.lat, lng: props.position.lng, label: label, markerType: markerType }).then(data => {
       setIsLoading(false);
       props.goBack();
     }).catch(error => {
-      console.log(error);
       setErrorMessage(error.response);
       setIsLoading(false);
     });

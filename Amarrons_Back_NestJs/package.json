@@ -29,6 +29,7 @@
     "@nestjs/swagger": "^4.6.1",
     "@nestjs/typeorm": "^7.1.0",
     "@types/jsonwebtoken": "^8.5.0",
+    "@types/xlsx": "0.0.36",
     "bcrypt": "^5.0.0",
     "class-transformer": "^0.3.1",
     "class-validator": "^0.12.2",
@@ -42,7 +43,8 @@
     "rxjs": "^6.5.4",
     "sqlite3": "^5.0.0",
     "swagger-ui-express": "^4.1.4",
-    "typeorm": "^0.2.25"
+    "typeorm": "^0.2.25",
+    "xlsx": "^0.16.8"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.0.0",

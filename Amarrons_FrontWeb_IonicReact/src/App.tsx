@@ -67,10 +67,6 @@ const App: React.FC = () => {
   const [userDecoded, setUserDecoded] = useState(null as any);
 
   useEffect(() => {
-    console.log('hello app! Wich platform?', getPlatforms());
-    console.log(process.env.REACT_APP_NODE_ENV, process.env.REACT_APP_API_URL);
-    console.log('there is an user token?', user);
-
     const localLng = localStorage.getItem('lng');
     if (localLng) {
       setCurrentLanguage(localLng);
@@ -82,12 +78,10 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    console.log('change user', user);
     const decoded = async () => {
       if (user) {
         var jwt = require('jsonwebtoken');
         const token = await jwt.decode(localStorage.getItem('user_token'));
-        console.log('token decoded', token);
         setUserDecoded(token);
       } else {
         setUserDecoded(null);
@@ -101,7 +95,6 @@ const App: React.FC = () => {
   }, [currentLanguage]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    console.log('app error message?', error);
     if (error) {
       if (error.data && error.data.message) {
         const message = error.data.message;
@@ -124,10 +117,7 @@ const App: React.FC = () => {
 
   const changeLanguage: any = (lng: string) => {
     if (acceptedLanguage.find(x => x === lng)) {
-      console.log('change the lang!');
-
       i18n.changeLanguage(lng);
-
       localStorage.setItem('lng', currentLanguage);
     }
   }

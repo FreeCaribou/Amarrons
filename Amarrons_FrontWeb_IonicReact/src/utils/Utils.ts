@@ -1,18 +1,18 @@
 import * as Leaflet from 'leaflet';
 
-export const FormatAxiosMock = (data: any) => {
+export function FormatAxiosMock(data: any) {
   return {
     status: 200,
     data
   }
 }
 
-export const decodeJwt = async (token: string) => {
+export async function decodeJwt(token: string) {
   var jwt = require('jsonwebtoken');
   return await jwt.decode(token);
 }
 
-export const createMap = (container: string, lat: number, lng: number, zoom: number, onClick?: any, onMove?: any, onLongClick?: any, onZoom?: any) => {
+export function createMap(container: string, lat: number, lng: number, zoom: number, onClick?: any, onMove?: any, onLongClick?: any, onZoom?: any) {
   const map = new Leaflet.Map(container).setView([lat, lng], zoom);
 
   Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

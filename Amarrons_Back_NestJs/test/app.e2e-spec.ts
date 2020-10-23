@@ -74,7 +74,7 @@ describe('AppController (e2e)', () => {
     it('(POST) /users/login With one admin', async () => {
       const response = await request(app.getHttpServer())
         .post('/users/login')
-        .send({ "email": "samy@amarrons.eu", "password": "jeMeNoie" })
+        .send({ email: "samy@amarrons.eu", password: "jeMeNoie" })
         .expect(201);
 
       adminToken = response.body.token;
@@ -85,7 +85,7 @@ describe('AppController (e2e)', () => {
     it('(POST) /users/login With one simple user', async () => {
       const response = await request(app.getHttpServer())
         .post('/users/login')
-        .send({ "email": "raoul@amarrons.eu", "password": "jeMeNoie" })
+        .send({ email: "raoul@amarrons.eu", password: "jeMeNoie" })
         .expect(201);
 
       simpleUserToken = response.body.token;
@@ -104,8 +104,8 @@ describe('AppController (e2e)', () => {
         .set('user_token', adminToken)
         .expect(200);
 
-      const resources = response.body;
-      expect(resources.isAuthorized).toBe(true);
+      const body = response.body;
+      expect(body.isAuthorized).toBe(true);
     });
 
     it('(GET) /verifyRight Simple user access to admin zone, denied', async () => {
@@ -114,8 +114,8 @@ describe('AppController (e2e)', () => {
         .set('user_token', simpleUserToken)
         .expect(200);
 
-      const resources = response.body;
-      expect(resources.isAuthorized).toBe(false);
+      const body = response.body;
+      expect(body.isAuthorized).toBe(false);
     });
 
     it('(GET) /verifyRight Simple user access to connected zone', async () => {
@@ -124,14 +124,14 @@ describe('AppController (e2e)', () => {
         .set('user_token', simpleUserToken)
         .expect(200);
 
-      const resources = response.body;
-      expect(resources.isAuthorized).toBe(true);
+      const body = response.body;
+      expect(body.isAuthorized).toBe(true);
     });
   })
 
   describe('Marker Test', () => {
     it('(GET) /markers No validate request', () => markerWithoutPosition(app.getHttpServer()));
-    it('(GET) /markers Validate request with Cinquantenaire', () => markerWithPositionAndOneMarker(app.getHttpServer()))
+    it('(GET) /markers Validate request with Cinquantenaire', () => markerWithPositionAndOneMarker(app.getHttpServer()));
   });
 
   afterAll(async () => {

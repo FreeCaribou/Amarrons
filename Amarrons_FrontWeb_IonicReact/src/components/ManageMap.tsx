@@ -25,7 +25,6 @@ const ManageMap: React.FC<Props> = ({ match, history }) => {
   let map: Leaflet.Map;
 
   useIonViewDidEnter(() => {
-    console.log(match);
     if (!map) {
       map = createMap("manageMapId", +match.params.lat, +match.params.lng, +match.params.zoom);
       if (match.params.point == '1') {
