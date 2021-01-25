@@ -6,315 +6,415 @@
 	},
 	"item": [
 		{
-			"name": "Find All Markers",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:1444/markers?northEastLat=50.852481&northEastLng=4.416245&southWestLat=50.826882&southWestLng=4.362643",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "1444",
-					"path": [
-						"markers"
-					],
-					"query": [
-						{
-							"key": "northEastLat",
-							"value": "50.852481"
+			"name": "User",
+			"item": [
+				{
+					"name": "Sign Up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"samy@amarronss.eu\",\r\n    \"password\": \"jeMeNoie\",\r\n    \"name\": \"Samy\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
-						{
-							"key": "northEastLng",
-							"value": "4.416245"
+						"url": {
+							"raw": "http://localhost:1444/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1444",
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"samy@amarrons.eu\",\r\n    \"password\": \"jeMeNoie\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
-						{
-							"key": "southWestLat",
-							"value": "50.826882"
+						"url": {
+							"raw": "http://localhost:1444/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1444",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify user right",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjEsImNvZGUiOiIxIiwibGFiZWwiOiJzaW1wbGUtdXNlciJ9LCJpZCI6NywiaWF0IjoxNTk4Njg4NTEyfQ.NN_3V3ELwJOJLOHKQijbBsuKFW7uGkflZoMX1n7ellk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:1444/users/verifyRight?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjEsImNvZGUiOiIxIiwibGFiZWwiOiJzaW1wbGUtdXNlciJ9LCJpZCI6NywiaWF0IjoxNTk4Njg4NTEyfQ.NN_3V3ELwJOJLOHKQijbBsuKFW7uGkflZoMX1n7ellk&authorizedRoles=3,2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1444",
+							"path": [
+								"users",
+								"verifyRight"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjEsImNvZGUiOiIxIiwibGFiZWwiOiJzaW1wbGUtdXNlciJ9LCJpZCI6NywiaWF0IjoxNTk4Njg4NTEyfQ.NN_3V3ELwJOJLOHKQijbBsuKFW7uGkflZoMX1n7ellk"
+								},
+								{
+									"key": "authorizedRoles",
+									"value": "3,2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjMsImNvZGUiOiIzIiwibGFiZWwiOiJhZG1pbiJ9LCJpZCI6MSwiaWF0IjoxNjAwNzYwNTkxfQ.ZOjNaXCe79h9-9Ng3mAnNEAChmIM-DaWAPgDfBShjZ8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:1444/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1444",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Role",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "user_token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjMsImNvZGUiOiIzIiwibGFiZWwiOiJhZG1pbiJ9LCJpZCI6MSwiaWF0IjoxNjAwNzYwNTkxfQ.ZOjNaXCe79h9-9Ng3mAnNEAChmIM-DaWAPgDfBShjZ8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"email\": \"samy@amarrons.eu\",\r\n    \"name\": \"Samy\",\r\n    \"role\": {\r\n        \"id\": 2\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
-						{
-							"key": "southWestLng",
-							"value": "4.362643"
+						"url": {
+							"raw": "http://localhost:1444/users/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1444",
+							"path": [
+								"users",
+								"1"
+							]
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Create new Markers",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "user_token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjMsImNvZGUiOiIzIiwibGFiZWwiOiJhZG1pbiJ9LCJpZCI6MSwiaWF0IjoxNjAwNzYwNTkxfQ.ZOjNaXCe79h9-9Ng3mAnNEAChmIM-DaWAPgDfBShjZ8",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"label\": \"Cinquantenairekeleleaaa\",\r\n    \"lat\": 50.840255,\r\n    \"lng\": 4.394491,\r\n    \"markerType\": {\r\n        \"id\": 2\r\n    },\r\n    \"markerOptions\": [\r\n        {\r\n            \"id\": 1\r\n        },\r\n        {\r\n            \"id\": 2\r\n        }\r\n    ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:1444/markers",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "1444",
-					"path": [
-						"markers"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Sign Up",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"samy@amarronss.eu\",\r\n    \"password\": \"jeMeNoie\",\r\n    \"name\": \"Samy\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Find All Roles",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjMsImNvZGUiOiIzIiwibGFiZWwiOiJhZG1pbiJ9LCJpZCI6MSwiaWF0IjoxNjAwNzYwNTkxfQ.ZOjNaXCe79h9-9Ng3mAnNEAChmIM-DaWAPgDfBShjZ8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:1444/users/roles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1444",
+							"path": [
+								"users",
+								"roles"
+							]
 						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:1444/users/signup",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "1444",
-					"path": [
-						"users",
-						"signup"
-					]
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Login",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"samy@amarrons.eu\",\r\n    \"password\": \"jeMeNoie\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:1444/users/login",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "1444",
-					"path": [
-						"users",
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Find All Marker Types",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "user_token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjEsImNvZGUiOiIxIiwibGFiZWwiOiJzaW1wbGUtdXNlciJ9LCJpZCI6NywiaWF0IjoxNTk4Njg4NTEyfQ.NN_3V3ELwJOJLOHKQijbBsuKFW7uGkflZoMX1n7ellk",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:1444/markers/types",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "1444",
-					"path": [
-						"markers",
-						"types"
-					],
-					"query": [
-						{
-							"key": "user_token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjEsImNvZGUiOiIxIiwibGFiZWwiOiJzaW1wbGUtdXNlciJ9LCJpZCI6NywiaWF0IjoxNTk4Njg4NTEyfQ.NN_3V3ELwJOJLOHKQijbBsuKFW7uGkflZoMX1n7ellk",
-							"disabled": true
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Verify user right",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "user_token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjEsImNvZGUiOiIxIiwibGFiZWwiOiJzaW1wbGUtdXNlciJ9LCJpZCI6NywiaWF0IjoxNTk4Njg4NTEyfQ.NN_3V3ELwJOJLOHKQijbBsuKFW7uGkflZoMX1n7ellk",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:1444/users/verifyRight?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjEsImNvZGUiOiIxIiwibGFiZWwiOiJzaW1wbGUtdXNlciJ9LCJpZCI6NywiaWF0IjoxNTk4Njg4NTEyfQ.NN_3V3ELwJOJLOHKQijbBsuKFW7uGkflZoMX1n7ellk&authorizedRoles=3,2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "1444",
-					"path": [
-						"users",
-						"verifyRight"
-					],
-					"query": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjEsImNvZGUiOiIxIiwibGFiZWwiOiJzaW1wbGUtdXNlciJ9LCJpZCI6NywiaWF0IjoxNTk4Njg4NTEyfQ.NN_3V3ELwJOJLOHKQijbBsuKFW7uGkflZoMX1n7ellk"
+			"name": "Marker",
+			"item": [
+				{
+					"name": "Find All Markers Validated",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZGF0ZSI6IjIwMTgtMTEtMDQgMTM6MDc6MTkifQ.iTvH9DF_oCVmW9pLOOKl-HRTXUH2aQ0UgGrAwsP2GKQeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZGF0ZSI6IjIwMTgtMTEtMDQgMTM6MDc6MTkifQ.iTvH9DF_oCVmW9pLOOKl-HRTXUH2aQ0UgGrAwsP2GKQ",
+									"type": "string"
+								}
+							]
 						},
-						{
-							"key": "authorizedRoles",
-							"value": "3,2"
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1444/markers?northEastLat=50.852481&northEastLng=4.416245&southWestLat=50.826882&southWestLng=4.362643",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1444",
+							"path": [
+								"markers"
+							],
+							"query": [
+								{
+									"key": "northEastLat",
+									"value": "50.852481"
+								},
+								{
+									"key": "northEastLng",
+									"value": "4.416245"
+								},
+								{
+									"key": "southWestLat",
+									"value": "50.826882"
+								},
+								{
+									"key": "southWestLng",
+									"value": "4.362643"
+								}
+							]
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Find All Marker Options",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "user_token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjEsImNvZGUiOiIxIiwibGFiZWwiOiJzaW1wbGUtdXNlciJ9LCJpZCI6NywiaWF0IjoxNTk4Njg4NTEyfQ.NN_3V3ELwJOJLOHKQijbBsuKFW7uGkflZoMX1n7ellk",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:1444/markers/options",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "1444",
-					"path": [
-						"markers",
-						"options"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Find All Users",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "user_token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjMsImNvZGUiOiIzIiwibGFiZWwiOiJhZG1pbiJ9LCJpZCI6MSwiaWF0IjoxNjAwNzYwNTkxfQ.ZOjNaXCe79h9-9Ng3mAnNEAChmIM-DaWAPgDfBShjZ8",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:1444/users",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "1444",
-					"path": [
-						"users"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Find All Roles",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "user_token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjMsImNvZGUiOiIzIiwibGFiZWwiOiJhZG1pbiJ9LCJpZCI6MSwiaWF0IjoxNjAwNzYwNTkxfQ.ZOjNaXCe79h9-9Ng3mAnNEAChmIM-DaWAPgDfBShjZ8",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:1444/users/roles",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "1444",
-					"path": [
-						"users",
-						"roles"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update User Role",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "user_token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjMsImNvZGUiOiIzIiwibGFiZWwiOiJhZG1pbiJ9LCJpZCI6MSwiaWF0IjoxNjAwNzYwNTkxfQ.ZOjNaXCe79h9-9Ng3mAnNEAChmIM-DaWAPgDfBShjZ8",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"id\": 1,\r\n    \"email\": \"samy@amarrons.eu\",\r\n    \"name\": \"Samy\",\r\n    \"role\": {\r\n        \"id\": 2\r\n    }\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:1444/users/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "1444",
-					"path": [
-						"users",
-						"1"
-					]
+				{
+					"name": "Find All Markers Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZGF0ZSI6IjIwMTgtMTEtMDQgMTM6MDc6MTkifQ.iTvH9DF_oCVmW9pLOOKl-HRTXUH2aQ0UgGrAwsP2GKQeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZGF0ZSI6IjIwMTgtMTEtMDQgMTM6MDc6MTkifQ.iTvH9DF_oCVmW9pLOOKl-HRTXUH2aQ0UgGrAwsP2GKQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_token",
+								"value": "{{admin-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:1444/markers/modo?northEastLat=50.852481&northEastLng=4.416245&southWestLat=50.826882&southWestLng=4.362643",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1444",
+							"path": [
+								"markers",
+								"modo"
+							],
+							"query": [
+								{
+									"key": "northEastLat",
+									"value": "50.852481"
+								},
+								{
+									"key": "northEastLng",
+									"value": "4.416245"
+								},
+								{
+									"key": "southWestLat",
+									"value": "50.826882"
+								},
+								{
+									"key": "southWestLng",
+									"value": "4.362643"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All Markers Admin Not Validated",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjMsImNvZGUiOiIzIiwibGFiZWwiOiJhZG1pbiJ9LCJpZCI6MSwiaWF0IjoxNjExNTcwNDI0fQ.AE865xJ-udvQr8ORJ9qIwaSGjL8Qx3kfztJmT_hpg_I",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:1444/markers/modo/invalidated",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1444",
+							"path": [
+								"markers",
+								"modo",
+								"invalidated"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All Marker Types",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjEsImNvZGUiOiIxIiwibGFiZWwiOiJzaW1wbGUtdXNlciJ9LCJpZCI6NywiaWF0IjoxNTk4Njg4NTEyfQ.NN_3V3ELwJOJLOHKQijbBsuKFW7uGkflZoMX1n7ellk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:1444/markers/types",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1444",
+							"path": [
+								"markers",
+								"types"
+							],
+							"query": [
+								{
+									"key": "user_token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjEsImNvZGUiOiIxIiwibGFiZWwiOiJzaW1wbGUtdXNlciJ9LCJpZCI6NywiaWF0IjoxNTk4Njg4NTEyfQ.NN_3V3ELwJOJLOHKQijbBsuKFW7uGkflZoMX1n7ellk",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new Markers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "user_token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjMsImNvZGUiOiIzIiwibGFiZWwiOiJhZG1pbiJ9LCJpZCI6MSwiaWF0IjoxNjAwNzYwNTkxfQ.ZOjNaXCe79h9-9Ng3mAnNEAChmIM-DaWAPgDfBShjZ8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"label\": \"Cinquantenairekeleleaaa\",\r\n    \"lat\": 50.840255,\r\n    \"lng\": 4.394491,\r\n    \"markerType\": {\r\n        \"id\": 2\r\n    },\r\n    \"markerOptions\": [\r\n        {\r\n            \"id\": 1\r\n        },\r\n        {\r\n            \"id\": 2\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1444/markers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1444",
+							"path": [
+								"markers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All Marker Options",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjEsImNvZGUiOiIxIiwibGFiZWwiOiJzaW1wbGUtdXNlciJ9LCJpZCI6NywiaWF0IjoxNTk4Njg4NTEyfQ.NN_3V3ELwJOJLOHKQijbBsuKFW7uGkflZoMX1n7ellk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:1444/markers/options",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1444",
+							"path": [
+								"markers",
+								"options"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

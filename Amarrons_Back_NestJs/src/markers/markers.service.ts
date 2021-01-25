@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Marker } from './entities/marker.entity';
-import { Repository, Between, MoreThanOrEqual } from 'typeorm';
+import { Repository, Between, MoreThanOrEqual, IsNull } from 'typeorm';
 import { MarkerPositionSearchDto } from './dto/marker-position-search.dto';
 import { MarkerType } from './entities/marker-type.entity';
 import { CreateMarkerDto } from './dto/create-marker.dto';
@@ -20,13 +20,36 @@ export class MarkersService {
     private readonly markerOptionRepository: Repository<MarkerOption>
   ) { }
 
+  findAllValidated(markerPositionSearchDto: MarkerPositionSearchDto) {
+    return this.markerRepository.find({
+      relations: ['markerType', 'markerOptions'],
+      where: {
+        lat: Between(markerPositionSearchDto.southWestLat, markerPositionSearchDto.northEastLat),
+        lng: Between(markerPositionSearchDto.southWestLng, markerPositionSearchDto.northEastLng),
+        // if the id is present and upper than 1, it's good (can't work with boolean or null)
+        validatedBy: MoreThanOrEqual(1),
+      },
+    });
+  }
+
+  async findAllInvalidated() {
+    let markers = await this.markerRepository.find({
+      relations: ['markerType', 'markerOptions', 'suggestedBy', 'validatedBy'],
+      where: {
+        validatedBy: IsNull()
+      },
+    });
+
+    // We cannot for the moment do more specify select with TypeORM
+    return deleteSensitiveDataFromMarker(markers);
+  }
+
   async findAll(markerPositionSearchDto: MarkerPositionSearchDto) {
     let markers = await this.markerRepository.find({
       relations: ['markerType', 'markerOptions', 'suggestedBy', 'validatedBy'],
       where: {
         lat: Between(markerPositionSearchDto.southWestLat, markerPositionSearchDto.northEastLat),
         lng: Between(markerPositionSearchDto.southWestLng, markerPositionSearchDto.northEastLng),
-        validatedBy: MoreThanOrEqual(1)
       },
     });
 
@@ -45,6 +68,20 @@ export class MarkersService {
       createMarkerDto.validatedBy = user;
     }
     const marker = this.markerRepository.create(createMarkerDto);
+    return this.markerRepository.save(marker);
+  }
+
+  async validateMarker(id: string, userToken) {
+    const jwt = require('jsonwebtoken');
+    const user = jwt.verify(userToken, process.env.JWT_SECURITY_KEY);
+
+    console.log(user);
+
+    let marker = await this.markerRepository.findOne(id);
+    if (!marker) {
+      throw new HttpException({ message: ['The marker didn\'t exist'] }, HttpStatus.NOT_FOUND);
+    }
+    marker.validatedBy = user;
     return this.markerRepository.save(marker);
   }
 

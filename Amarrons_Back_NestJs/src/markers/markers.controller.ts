@@ -1,4 +1,4 @@
-import { Controller, Get, Query, Body, Post, Headers } from '@nestjs/common';
+import { Controller, Get, Query, Body, Post, Headers, Put, Param } from '@nestjs/common';
 import { MarkersService } from './markers.service';
 import { MarkerPositionSearchDto } from './dto/marker-position-search.dto';
 import { Auth } from '../common/decorators/auth.decorator';
@@ -15,6 +15,24 @@ export class MarkersController {
   ) { }
 
   @Get()
+  findAllValidated(@Query() markerPositionSearchDto: MarkerPositionSearchDto) {
+    return this.markersService.findAllValidated(markerPositionSearchDto);
+  }
+
+  @Auth(RoleEnum.Modo, RoleEnum.Admin)
+  @Get('/modo/invalidated')
+  findAllinvalidated() {
+    return this.markersService.findAllInvalidated();
+  }
+
+  @Auth(RoleEnum.Modo, RoleEnum.Admin)
+  @Put('/modo/validate/:id')
+  updateValidated(@Param('id') id: string, @Headers() header) {
+    return this.markersService.validateMarker(id, header.user_token)
+  }
+
+  @Auth(RoleEnum.Modo, RoleEnum.Admin)
+  @Get('/modo')
   findAll(@Query() markerPositionSearchDto: MarkerPositionSearchDto) {
     return this.markersService.findAll(markerPositionSearchDto);
   }

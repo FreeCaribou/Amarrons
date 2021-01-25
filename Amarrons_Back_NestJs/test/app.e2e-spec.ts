@@ -29,7 +29,7 @@ describe('AppController (e2e)', () => {
       ],
     }).compile();
 
-    app = moduleFixture.createNestApplication();
+    app = await moduleFixture.createNestApplication();
 
     app.useGlobalPipes(
       new ValidationPipe({
@@ -42,7 +42,7 @@ describe('AppController (e2e)', () => {
       }),
     );
 
-    connection = getConnection();
+    connection = await getConnection();
 
     await eraseAll();
     for (const e of fullInDbForDevMode) {
