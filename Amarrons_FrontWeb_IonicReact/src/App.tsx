@@ -12,11 +12,11 @@ import {
   IonToast,
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { map, settings, peopleCircle } from 'ionicons/icons';
+import { map, settings, peopleCircle, terminal } from 'ionicons/icons';
 import { getPlatforms } from '@ionic/react';
 
-import MainMap from './pages/MainMap';
-import Settings from './pages/Settings';
+import MainMap from './pages/tabs/MainMap';
+import Settings from './pages/tabs/Settings';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -42,11 +42,10 @@ import UserContext from './hooks/useUserContext';
 import LanguageContext from './hooks/useLanguageContext';
 
 import { useTranslation } from 'react-i18next';
-import ManageMap from './components/ManageMap';
+import ManageMap from './pages/ManageMap';
 import LoaderContext from './hooks/useLoaderContext';
 import ErrorMessageContext from './hooks/useErrorMessageContext';
-import Admin from './pages/Admin';
-import { decodeJwt } from './utils/Utils';
+import Admin from './pages/tabs/Admin';
 
 const App: React.FC = () => {
 
@@ -67,6 +66,7 @@ const App: React.FC = () => {
   const [userDecoded, setUserDecoded] = useState(null as any);
 
   useEffect(() => {
+    console.log('hello app on ', getPlatforms());
     const localLng = localStorage.getItem('lng');
     if (localLng) {
       setCurrentLanguage(localLng);
@@ -124,7 +124,7 @@ const App: React.FC = () => {
 
   const isAdmin: any = () => {
     if (userDecoded) {
-      return userDecoded.role.code == '3';
+      return userDecoded.role.code === '3';
     } else {
       return false;
     }
@@ -157,8 +157,8 @@ const App: React.FC = () => {
                     </IonTabButton>
                     {
                       isAdmin() &&
-                      <IonTabButton tab="admin" href="/admin" disabled={user ? false : true}>
-                        <IonIcon icon={peopleCircle} />
+                      <IonTabButton tab="admin" href="/admin" >
+                        <IonIcon icon={terminal} />
                         <IonLabel>{t("Nav.Admin")} </IonLabel>
                       </IonTabButton>
                     }

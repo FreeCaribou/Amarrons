@@ -30,8 +30,13 @@ ion-tab-button {
 }
 
 .margin-top-small {
-  margin-top: 25px;
+  margin-top: var(--pixel-small);
 }
+
+.margin-left-small
+ {
+   margin-left: var(--pixel-small);
+ }
 
 .map{width: 100%; height: 100%}
 
@@ -75,4 +80,8 @@ ion-tab-button {
   animation-duration: 4000ms;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
+}
+
+.fake-select-mouse {
+  cursor: pointer;
 }

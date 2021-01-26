@@ -3,6 +3,10 @@ http://ionicframework.com/docs/theming/ */
 
 /** Ionic CSS Variables **/
 :root {
+  /* The pixel size for padding-margin-other */
+  --pixel-small: 15px;
+
+  /* The color theme */
   --ion-color-primary: #21468b;
   --ion-color-primary-rgb: 33,70,139;
   --ion-color-primary-contrast: #ffffff;

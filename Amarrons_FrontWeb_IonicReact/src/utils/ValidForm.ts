@@ -1,5 +1,5 @@
 export function validSimpleRequiredTextInput(value: string) {
-  return value != null && value.trim() != '';
+  return value != null && value.trim() !== '';
 }
 
 export function validEmailTextInput(email: string) {

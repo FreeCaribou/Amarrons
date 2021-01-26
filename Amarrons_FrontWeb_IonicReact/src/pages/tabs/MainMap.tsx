@@ -1,17 +1,17 @@
-import React, { useEffect, useContext, useState } from 'react';
-import { IonContent, IonFab, IonFabButton, IonIcon, IonPage, IonToast, useIonViewDidEnter, useIonViewDidLeave, useIonViewWillEnter, useIonViewWillLeave } from '@ionic/react';
+import React, { useContext, useState } from 'react';
+import { IonContent, IonFab, IonFabButton, IonIcon, IonPage, IonToast, useIonViewWillEnter, useIonViewWillLeave } from '@ionic/react';
 import * as Leaflet from 'leaflet';
 import './MainMap.css';
-import { DataMarker } from '../models/data-marker.models';
-import { MarkerService } from '../services/markers/marker.service';
-import UserContext from '../hooks/useUserContext';
+import { DataMarker } from '../../models/data-marker.models';
+import { MarkerService } from '../../services/markers/marker.service';
+import UserContext from '../../hooks/useUserContext';
 import { RouteComponentProps } from 'react-router';
-import { createMap } from '../utils/Utils';
+import { createMap } from '../../utils/Utils';
 import { useTranslation } from 'react-i18next';
 import { add, locate, sync } from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
 import { Geolocation } from '@ionic-native/geolocation';
-import ErrorMessageContext from '../hooks/useErrorMessageContext';
+import ErrorMessageContext from '../../hooks/useErrorMessageContext';
 
 // TODO find an artist for better icon
 let anchorIcon = Leaflet.icon({
@@ -137,7 +137,7 @@ const MainMap: React.FC<RouteComponentProps> = ({ history }) => {
 
   const compareOldAndNewPosition: any = async (position: any) => {
     const newPosition = { lat: position.coords.latitude, lng: position.coords.longitude };
-    if (currentPosition != newPosition) {
+    if (currentPosition !== newPosition) {
       currentPosition = newPosition;
       updatePositionMarker();
     }

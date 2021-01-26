@@ -5,7 +5,7 @@ import * as Leaflet from 'leaflet';
 import { createMap } from '../utils/Utils';
 import { DataMarker } from '../models/data-marker.models';
 import { useTranslation } from 'react-i18next';
-import MarkerForm from './MarkerForm';
+import MarkerForm from '../components/MarkerForm';
 
 interface Props extends RouteComponentProps<{
   lat: string;
@@ -27,7 +27,7 @@ const ManageMap: React.FC<Props> = ({ match, history }) => {
   useIonViewDidEnter(() => {
     if (!map) {
       map = createMap("manageMapId", +match.params.lat, +match.params.lng, +match.params.zoom);
-      if (match.params.point == '1') {
+      if (match.params.point === '1') {
         const markPoint = new DataMarker([+match.params.lat, +match.params.lng], { id: 0 });
         markPoint.addTo(map);
       }

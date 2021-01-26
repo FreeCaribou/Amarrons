@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { IonInput, IonItem, IonLabel, IonText, IonSelect, IonSelectOption } from '@ionic/react';
+import { IonItem, IonLabel, IonText, IonSelect, IonSelectOption } from '@ionic/react';
 import { useTranslation } from 'react-i18next';
 import { CodeLabel } from '../../models/code-label';
-import { musicalNote } from 'ionicons/icons';
 
 interface Props {
   setValue(e: any): void,
