@@ -14,8 +14,8 @@ export class UserService implements IUser {
     return await this.userService.SignUp(email, name, password);
   }
 
-  VerifyRight = async (token: string, authorizedRoles: string[]) => {
-    return await this.userService.VerifyRight(token, authorizedRoles);
+  VerifyRight = async (authorizedRoles: string[]) => {
+    return await this.userService.VerifyRight(authorizedRoles);
   }
 
 }

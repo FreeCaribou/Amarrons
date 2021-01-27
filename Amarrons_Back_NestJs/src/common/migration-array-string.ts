@@ -27,9 +27,11 @@ const insertMarkerTypePort = "INSERT INTO `marker_type` (`id`, `code`, `label`) 
 const insertMarkerTypeView = "INSERT INTO `marker_type` (`id`, `code`, `label`) VALUES (NULL, '2', 'View')";
 
 // one admin user, password is jeMeNoie
-const insertOneAdminUser = "INSERT INTO `user` (`id`, `email`, `name`, `password`, `roleId`) VALUES (NULL, 'samy@amarrons.eu', 'Samy', '$2b$12$aFdl4OEnvXw23Up5uVugvOJ8MxNNVJbeMwU6D7/ookop3InW.ZKEm', 3)";
+const insertOneAdminUser = "INSERT INTO `user` (`id`, `email`, `name`, `password`, `roleId`) VALUES (NULL, 'samy@amarrons.com', 'Samy', '$2b$12$aFdl4OEnvXw23Up5uVugvOJ8MxNNVJbeMwU6D7/ookop3InW.ZKEm', 3)";
 // one simple user, same password
-const insertOneSimpleUser = "INSERT INTO `user` (`id`, `email`, `name`, `password`, `roleId`) VALUES (NULL, 'raoul@amarrons.eu', 'Raoul', '$2b$12$aFdl4OEnvXw23Up5uVugvOJ8MxNNVJbeMwU6D7/ookop3InW.ZKEm', 1)";
+const insertOneSimpleUser = "INSERT INTO `user` (`id`, `email`, `name`, `password`, `roleId`) VALUES (NULL, 'raoul@amarrons.com', 'Raoul', '$2b$12$aFdl4OEnvXw23Up5uVugvOJ8MxNNVJbeMwU6D7/ookop3InW.ZKEm', 1)";
+// one modo user, same password
+const insertOneModoUser = "INSERT INTO `user` (`id`, `email`, `name`, `password`, `roleId`) VALUES (NULL, 'rluxemburg@amarrons.com', 'Rosa Luxemburg', '$2b$12$aFdl4OEnvXw23Up5uVugvOJ8MxNNVJbeMwU6D7/ookop3InW.ZKEm', 2)";
 
 // some marker
 const insertMarkerCinquantenaire = "INSERT INTO `marker` (`id`, `label`, `markerTypeId`, `lat`, `lng`, `suggestedById`, `validatedById`) VALUES (NULL, 'Cinquantenaire', '1', '50.840255', '4.394491', '1', '1');";
@@ -57,6 +59,7 @@ export const fullInDbForDevMode = [
   insertMarkerTypeView,
   insertOneAdminUser,
   insertOneSimpleUser,
+  insertOneModoUser,
   insertMarkerCinquantenaire,
   insertMarkerSchuman,
   insertMarkerOptionWaterSupply,

@@ -11,7 +11,7 @@ export class UserDataService implements IUser {
     return await BaseService.post('users/signup', { email, password, name });
   }
 
-  VerifyRight = async (token: string, authorizedRoles: string[]) => {
+  VerifyRight = async (authorizedRoles: string[]) => {
     return await BaseService.get(`users/verifyRight?token=${localStorage.getItem('user_token')}&authorizedRoles=${authorizedRoles.join()}`);
   }
 

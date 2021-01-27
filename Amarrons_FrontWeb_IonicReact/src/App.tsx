@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, useParams } from 'react-router-dom';
 import {
   IonApp,
   IonIcon,
@@ -12,7 +12,7 @@ import {
   IonToast,
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { map, settings, peopleCircle, terminal } from 'ionicons/icons';
+import { map, settings, terminal } from 'ionicons/icons';
 import { getPlatforms } from '@ionic/react';
 
 import MainMap from './pages/tabs/MainMap';
@@ -46,6 +46,9 @@ import ManageMap from './pages/ManageMap';
 import LoaderContext from './hooks/useLoaderContext';
 import ErrorMessageContext from './hooks/useErrorMessageContext';
 import Admin from './pages/tabs/Admin';
+import { InternalErrorEnum } from './models/enum/internal-error.enum';
+import ManageUnvalidatedMarker from './pages/ManageUnvalidatedMarker';
+import ManageUser from './pages/ManagerUser';
 
 const App: React.FC = () => {
 
@@ -67,6 +70,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     console.log('hello app on ', getPlatforms());
+
     const localLng = localStorage.getItem('lng');
     if (localLng) {
       setCurrentLanguage(localLng);
@@ -96,7 +100,16 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (error) {
-      if (error.data && error.data.message) {
+      if (error.internal) {
+        switch (error.internal) {
+          case InternalErrorEnum.NoRightToAccess:
+            setErrorMessage(t('Error.NoPermission'));
+            break;
+          default:
+            setErrorMessage('There is an error');
+            break;
+        }
+      } else if (error.data && error.data.message) {
         const message = error.data.message;
         if (!Array.isArray(message)) {
           setErrorMessage(message as string);
@@ -122,9 +135,9 @@ const App: React.FC = () => {
     }
   }
 
-  const isAdmin: any = () => {
+  const accessAdminZone: any = () => {
     if (userDecoded) {
-      return userDecoded.role.code === '3';
+      return userDecoded.role.code === '3' || userDecoded.role.code === '2';
     } else {
       return false;
     }
@@ -140,11 +153,16 @@ const App: React.FC = () => {
               <IonReactRouter>
                 <IonTabs>
                   <IonRouterOutlet>
-                    <Route path="/:tab(map)" component={MainMap} exact={true} />
+                    <Route path="/:tab(map)" component={MainMap} exact />
                     <Route path="/:tab(map)/new-marker/:lat/:lng/:zoom/:point" component={ManageMap} />
-                    <Route path="/:tab(options)" component={Settings} exact={true} />
-                    <Route path="/:tab(admin)" component={Admin} exact={true} />
-                    <Route exact path="/" render={() => <Redirect to="/map" />} />
+                    <Route path="/:tab(options)" component={Settings} exact />
+                    <Route path="/:tab(admin)" component={Admin} exact />
+                    <Route path="/:tab(admin)/manage-unvalidated-marker" component={ManageUnvalidatedMarker} exact />
+                    <Route path="/:tab(admin)/manage-user" component={ManageUser} exact />
+
+                    <Redirect from="/" to="/map" exact />
+                    {/* not perfect no match detection but limited with the doc */}
+                    <Route component={MainMap} />
                   </IonRouterOutlet>
                   <IonTabBar slot="bottom">
                     <IonTabButton tab="map" href="/map">
@@ -155,13 +173,19 @@ const App: React.FC = () => {
                       <IonIcon icon={settings} />
                       <IonLabel>{t("Nav.Settings")}</IonLabel>
                     </IonTabButton>
-                    {
+                    <IonTabButton tab="admin" href="/admin" disabled={accessAdminZone() ? false : true} >
+                      <IonIcon icon={terminal} />
+                      <IonLabel>{t("Nav.Admin")} </IonLabel>
+                    </IonTabButton>
+
+                    {/* Have a bug with it, if we start the page at admin, the first tab (map) become also admin! */}
+                    {/* {
                       isAdmin() &&
                       <IonTabButton tab="admin" href="/admin" >
                         <IonIcon icon={terminal} />
                         <IonLabel>{t("Nav.Admin")} </IonLabel>
                       </IonTabButton>
-                    }
+                    } */}
                   </IonTabBar>
                 </IonTabs>
               </IonReactRouter>

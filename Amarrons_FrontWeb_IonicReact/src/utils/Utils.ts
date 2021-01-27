@@ -1,4 +1,6 @@
 import * as Leaflet from 'leaflet';
+import { InternalErrorEnum } from '../models/enum/internal-error.enum';
+import { UserService } from '../services/users/user.service';
 
 export function FormatAxiosMock(data: any) {
   return {
@@ -10,6 +12,20 @@ export function FormatAxiosMock(data: any) {
 export async function decodeJwt(token: string) {
   var jwt = require('jsonwebtoken');
   return await jwt.decode(token);
+}
+
+export async function isAdmin() {
+  const token = localStorage.getItem('user_token');
+  if (token) {
+    const user = await decodeJwt(token as string);
+    if (user) {
+      return user.role.code === '3';
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
 }
 
 export function createMap(container: string, lat: number, lng: number, zoom: number, onClick?: any, onMove?: any, onLongClick?: any, onZoom?: any) {
@@ -26,4 +42,19 @@ export function createMap(container: string, lat: number, lng: number, zoom: num
   if (onZoom) { map.on('zoomanim', (e) => { onZoom(e); }); }
 
   return map;
+}
+
+export async function customRouteGuard(roles: string[], setErrorMessage: any, history: any): Promise<boolean> {
+  const userService = new UserService();
+  let isOk = true;
+
+  const result = (await userService.VerifyRight(roles)).data;
+  if (!result.isAuthorized) {
+    isOk = false;
+    setErrorMessage({ internal: InternalErrorEnum.NoRightToAccess });
+    history.replace('/options');
+    history.push('/options');
+  }
+
+  return isOk;
 }

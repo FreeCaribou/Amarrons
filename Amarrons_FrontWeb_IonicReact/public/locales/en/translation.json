@@ -5,6 +5,7 @@
     "Language": "Language"
   },
   "Nav": {
+    "VerifyRight": "We verify your right to access here",
     "Settings": "Settings",
     "Map": "Map",
     "MainMap": "Main Map",
@@ -29,10 +30,11 @@
     "PleaseSelectOneOrMany": "Please select one or more option"
   },
   "Error": {
-    "NoConnectedOrRole": "You must be connected or have the right role."
+    "NoConnectedOrRole": "You must be connected or have the right role.",
+    "NoPermission": "You don't have the permission to access here"
   },
   "Admin": {
-    "ManageUnvalidatedMarker": "Manager the unvalidated marker",
-    "ManageUser": "Manager the user"
+    "ManageUnvalidatedMarker": "Manage the unvalidated marker",
+    "ManageUser": "Manage the user"
   }
 }
