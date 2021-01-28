@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Query, Put, Param } from '@nestjs/common';
+import { Controller, Post, Body, Get, Query, Put, Param, Headers } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { SignUpUserDto } from './dto/sign-up-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
@@ -36,8 +36,8 @@ export class UsersController {
   // no less, no more, all is done with the @Auth guard
   @Auth(RoleEnum.Connected)
   @Get('/verifyToken')
-  verifyToken() {
-    return { isValid: true };
+  verifyToken(@Headers() header) {
+    return this.usersService.verifyToken(header.user_token);
   }
 
   @Auth(RoleEnum.Admin)

@@ -115,6 +115,17 @@ export class UsersService {
     return { isAuthorized };
   }
 
+  // Take the token, verify the validity (normaly it's had been verify before but just to be sure) 
+  // and if it's ok, renew the token (maybe there is new role)
+  async verifyToken(userToken) {
+    const userId = this.jwt.verify(userToken, process.env.JWT_SECURITY_KEY).id;
+    const user = await this.userRepository.findOne(userId, { relations: ['role'] });
+    return {
+      isValid: true,
+      token: this.createUserToken(user)
+    }
+  }
+
   findAllRoles() {
     return this.roleRepository.find();
   }
