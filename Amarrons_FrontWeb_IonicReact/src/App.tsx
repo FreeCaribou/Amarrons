@@ -80,8 +80,8 @@ const App: React.FC = () => {
         const result = (await userService.VerifyToken()).data;
         if (result.isValid) {
           console.log('nice the token is good');
-          let userLocalDecoded = await decodeJwt(userLocalStorage);
-          userLocalDecoded.token = userLocalStorage;
+          let userLocalDecoded = await decodeJwt(result.token);
+          userLocalDecoded.token = result.token;
           setUser(userLocalDecoded);
         }
         setIsLoading(false);
