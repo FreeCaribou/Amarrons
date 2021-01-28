@@ -8,6 +8,7 @@ import LoaderContext from '../hooks/useLoaderContext';
 import ErrorMessageContext from '../hooks/useErrorMessageContext';
 import { useTranslation } from 'react-i18next';
 import { validSimpleRequiredTextInput } from '../utils/ValidForm';
+import { decodeJwt } from '../utils/Utils';
 
 const Login: React.FC = () => {
 
@@ -55,9 +56,11 @@ const Login: React.FC = () => {
     localStorage.removeItem('user_token');
   }
 
-  const connectionSuccess: any = (data: any) => {
+  const connectionSuccess: any = async (data: any) => {
     localStorage.setItem('user_token', data.data.token);
-    setUser(data.data);
+    const userDecoded = await decodeJwt(data.data.token as string);
+    userDecoded.token = data.data.token;
+    setUser(userDecoded);
   }
 
   const connectionFailure: any = (error: any) => {

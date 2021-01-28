@@ -18,4 +18,8 @@ export class UserService implements IUser {
     return await this.userService.VerifyRight(authorizedRoles);
   }
 
+  VerifyToken = async () => {
+    return await this.userService.VerifyToken();
+  }
+
 }

@@ -20,8 +20,6 @@ export async function isAdmin() {
     const user = await decodeJwt(token as string);
     if (user) {
       return user.role.code === '3';
-    } else {
-      return false;
     }
   } else {
     return false;

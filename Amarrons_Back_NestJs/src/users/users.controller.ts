@@ -32,6 +32,14 @@ export class UsersController {
     return this.usersService.verifyRight(verifyRightDto);
   }
 
+  // We just want to verify than the token in the header is good
+  // no less, no more, all is done with the @Auth guard
+  @Auth(RoleEnum.Connected)
+  @Get('/verifyToken')
+  verifyToken() {
+    return { isValid: true };
+  }
+
   @Auth(RoleEnum.Admin)
   @Get()
   findAll() {

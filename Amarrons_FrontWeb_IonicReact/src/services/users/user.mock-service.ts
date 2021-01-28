@@ -35,4 +35,8 @@ export class UserMockService implements IUser {
     return FormatAxiosMock({ isAuthorized: true });
   }
 
+  VerifyToken = async () => {
+    return FormatAxiosMock({ isValid: true });
+  }
+
 }

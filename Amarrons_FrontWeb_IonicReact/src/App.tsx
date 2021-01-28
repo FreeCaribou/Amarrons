@@ -49,6 +49,8 @@ import Admin from './pages/tabs/Admin';
 import { InternalErrorEnum } from './models/enum/internal-error.enum';
 import ManageUnvalidatedMarker from './pages/ManageUnvalidatedMarker';
 import ManageUser from './pages/ManagerUser';
+import { decodeJwt } from './utils/Utils';
+import { UserService } from './services/users/user.service';
 
 const App: React.FC = () => {
 
@@ -56,7 +58,7 @@ const App: React.FC = () => {
 
   const { t, i18n } = useTranslation();
 
-  const [user, setUser] = useState(localStorage.getItem('user_token'));
+  const [user, setUser] = useState(null as any);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null as any);
   const [currentLanguage, setCurrentLanguage] = useState('en' as any);
@@ -66,32 +68,39 @@ const App: React.FC = () => {
   const [acceptedLanguage] = useState(['en', 'fr', 'de']);
   const [showErrorToast, setShowErrorToast] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [userDecoded, setUserDecoded] = useState(null as any);
 
   useEffect(() => {
-    console.log('hello app on ', getPlatforms());
+    const init = async () => {
+      console.log('hello app on ', getPlatforms());
 
-    const localLng = localStorage.getItem('lng');
-    if (localLng) {
-      setCurrentLanguage(localLng);
-    } else {
-      let userLang = navigator.language;
-      userLang = userLang.slice(0, 2);
-      setCurrentLanguage(userLang);
+      let userLocalStorage = localStorage.getItem('user_token');
+      if (userLocalStorage) {
+        setIsLoading(true);
+        const userService = new UserService();
+        const result = (await userService.VerifyToken()).data;
+        if (result.isValid) {
+          console.log('nice the token is good');
+          let userLocalDecoded = await decodeJwt(userLocalStorage);
+          userLocalDecoded.token = userLocalStorage;
+          setUser(userLocalDecoded);
+        }
+        setIsLoading(false);
+      }
+
+      const localLng = localStorage.getItem('lng');
+      if (localLng) {
+        setCurrentLanguage(localLng);
+      } else {
+        let userLang = navigator.language;
+        userLang = userLang.slice(0, 2);
+        setCurrentLanguage(userLang);
+      }
     }
+    init();
   }, []);
 
   useEffect(() => {
-    const decoded = async () => {
-      if (user) {
-        var jwt = require('jsonwebtoken');
-        const token = await jwt.decode(localStorage.getItem('user_token'));
-        setUserDecoded(token);
-      } else {
-        setUserDecoded(null);
-      }
-    }
-    decoded();
+    console.log('user?', user);
   }, [user]);
 
   useEffect(() => {
@@ -136,8 +145,8 @@ const App: React.FC = () => {
   }
 
   const accessAdminZone: any = () => {
-    if (userDecoded) {
-      return userDecoded.role.code === '3' || userDecoded.role.code === '2';
+    if (user) {
+      return user.role.code === '3' || user.role.code === '2';
     } else {
       return false;
     }
@@ -180,7 +189,7 @@ const App: React.FC = () => {
 
                     {/* Have a bug with it, if we start the page at admin, the first tab (map) become also admin! */}
                     {/* {
-                      isAdmin() &&
+                      accessAdminZone() &&
                       <IonTabButton tab="admin" href="/admin" >
                         <IonIcon icon={terminal} />
                         <IonLabel>{t("Nav.Admin")} </IonLabel>

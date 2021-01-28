@@ -15,4 +15,8 @@ export class UserDataService implements IUser {
     return await BaseService.get(`users/verifyRight?token=${localStorage.getItem('user_token')}&authorizedRoles=${authorizedRoles.join()}`);
   }
 
+  VerifyToken = async () => {
+    return await BaseService.get(`users/verifyToken`);
+  }
+
 }

@@ -44,7 +44,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"samy@amarrons.eu\",\r\n    \"password\": \"jeMeNoie\"\r\n}",
+							"raw": "{\r\n    \"email\": \"raoul@amarrons.eu\",\r\n    \"password\": \"jeMeNoie\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -73,7 +73,7 @@
 						"header": [
 							{
 								"key": "user_token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjEsImNvZGUiOiIxIiwibGFiZWwiOiJzaW1wbGUtdXNlciJ9LCJpZCI6NywiaWF0IjoxNTk4Njg4NTEyfQ.NN_3V3ELwJOJLOHKQijbBsuKFW7uGkflZoMX1n7ellk",
+								"value": "{{user-token}}",
 								"type": "text"
 							}
 						],
@@ -109,7 +109,7 @@
 						"header": [
 							{
 								"key": "user_token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjMsImNvZGUiOiIzIiwibGFiZWwiOiJhZG1pbiJ9LCJpZCI6MSwiaWF0IjoxNjAwNzYwNTkxfQ.ZOjNaXCe79h9-9Ng3mAnNEAChmIM-DaWAPgDfBShjZ8",
+								"value": "{{admin-token}}",
 								"type": "text"
 							}
 						],
@@ -134,7 +134,7 @@
 						"header": [
 							{
 								"key": "user_token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjMsImNvZGUiOiIzIiwibGFiZWwiOiJhZG1pbiJ9LCJpZCI6MSwiaWF0IjoxNjAwNzYwNTkxfQ.ZOjNaXCe79h9-9Ng3mAnNEAChmIM-DaWAPgDfBShjZ8",
+								"value": "{{admin-token}}",
 								"type": "text"
 							}
 						],
@@ -169,7 +169,7 @@
 						"header": [
 							{
 								"key": "user_token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjMsImNvZGUiOiIzIiwibGFiZWwiOiJhZG1pbiJ9LCJpZCI6MSwiaWF0IjoxNjAwNzYwNTkxfQ.ZOjNaXCe79h9-9Ng3mAnNEAChmIM-DaWAPgDfBShjZ8",
+								"value": "{{admin-token}}",
 								"type": "text"
 							}
 						],
@@ -183,6 +183,32 @@
 							"path": [
 								"users",
 								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Token",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_token",
+								"value": "{{admin-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:1444/users/verifyToken",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1444",
+							"path": [
+								"users",
+								"verifyToken"
 							]
 						}
 					},
@@ -301,7 +327,7 @@
 						"header": [
 							{
 								"key": "user_token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjMsImNvZGUiOiIzIiwibGFiZWwiOiJhZG1pbiJ9LCJpZCI6MSwiaWF0IjoxNjExNTcwNDI0fQ.AE865xJ-udvQr8ORJ9qIwaSGjL8Qx3kfztJmT_hpg_I",
+								"value": "{{admin-token}}",
 								"type": "text"
 							}
 						],
@@ -328,7 +354,7 @@
 						"header": [
 							{
 								"key": "user_token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjEsImNvZGUiOiIxIiwibGFiZWwiOiJzaW1wbGUtdXNlciJ9LCJpZCI6NywiaWF0IjoxNTk4Njg4NTEyfQ.NN_3V3ELwJOJLOHKQijbBsuKFW7uGkflZoMX1n7ellk",
+								"value": "{{admin-token}}",
 								"type": "text"
 							}
 						],
@@ -361,7 +387,7 @@
 						"header": [
 							{
 								"key": "user_token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjMsImNvZGUiOiIzIiwibGFiZWwiOiJhZG1pbiJ9LCJpZCI6MSwiaWF0IjoxNjAwNzYwNTkxfQ.ZOjNaXCe79h9-9Ng3mAnNEAChmIM-DaWAPgDfBShjZ8",
+								"value": "{{admin-token}}",
 								"type": "text"
 							}
 						],
@@ -395,7 +421,7 @@
 						"header": [
 							{
 								"key": "user_token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjEsImNvZGUiOiIxIiwibGFiZWwiOiJzaW1wbGUtdXNlciJ9LCJpZCI6NywiaWF0IjoxNTk4Njg4NTEyfQ.NN_3V3ELwJOJLOHKQijbBsuKFW7uGkflZoMX1n7ellk",
+								"value": "{{admin-token}}",
 								"type": "text"
 							}
 						],
@@ -409,6 +435,34 @@
 							"path": [
 								"markers",
 								"options"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Validate Marker",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "user_token",
+								"value": "{{admin-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:1444/markers/modo/validate/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1444",
+							"path": [
+								"markers",
+								"modo",
+								"validate",
+								"2"
 							]
 						}
 					},

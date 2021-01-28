@@ -1,19 +1,29 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonIcon } from '@ionic/react';
 import { useTranslation } from 'react-i18next';
 import { chevronForward, navigateCircle, peopleCircle } from 'ionicons/icons';
 import { RouteComponentProps } from 'react-router';
 import VerifyRight from '../../components/VerifyRight';
-import { isAdmin } from '../../utils/Utils';
+import { decodeJwt } from '../../utils/Utils';
+import UserContext from '../../hooks/useUserContext';
 
 // TODO security
 const Admin: React.FC<RouteComponentProps> = ({ history }) => {
   const { t } = useTranslation();
 
   const [isOk, setIsOk] = useState(false);
+  const [user, setUser] = useContext(UserContext);
 
   const onClickListItem = (path: string) => {
     history.push(path);
+  }
+
+  const isAdmin: any = () => {
+    console.log('user for admin?', user);
+    if (user && user.role) {
+      return user.role.code === '3';
+    }
+    return false;
   }
 
   return (
