@@ -14,6 +14,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import ErrorMessageContext from '../../hooks/useErrorMessageContext';
 
 // TODO find an artist for better icon
+// TODO shop icon
 let anchorIcon = Leaflet.icon({
   iconUrl: '../../assets/icon/anchor-icon.png',
   iconSize: [50, 50], // size of the icon
@@ -21,6 +22,17 @@ let anchorIcon = Leaflet.icon({
 
 let spyglassIcon = Leaflet.icon({
   iconUrl: '../../assets/icon/spyglass-icon.png',
+  iconSize: [50, 50], // size of the icon
+});
+
+let shopIcon = Leaflet.icon({
+  iconUrl: '../../assets/icon/shop-icon.png',
+  iconSize: [50, 50], // size of the icon
+});
+
+// TODO find better icon for default
+let defaultIcon = Leaflet.icon({
+  iconUrl: '../../assets/icon/default-icon.png',
   iconSize: [50, 50], // size of the icon
 });
 
@@ -114,10 +126,31 @@ const MainMap: React.FC<RouteComponentProps> = ({ history }) => {
           case '2':
             icon = spyglassIcon;
             break;
+          case '3':
+            icon = shopIcon;
+            break;
+          default:
+            icon = defaultIcon;
+            break;
         }
         const markPoint = new DataMarker([e.lat, e.lng], { id: e.id }, { icon: icon });
-        // TODO better pop-up with the option
-        markPoint.bindPopup(`<p onClick={console.log(${e.label})} >${e.label}</p>`);
+        // TODO rework this part (code style and ui)
+        console.log('the markers', e);
+        let popupText = `
+          <h1>${e.label}</h1>
+          <h2>${e.markerType.label}</h2>
+        `;
+        if (e.markerOptions && e.markerOptions.length > 0) {
+          popupText += '<h3>Options:</h3>'
+          popupText += '<ul>';
+          e.markerOptions.forEach((r: any) => {
+            popupText += `
+              <li>${r.label}</li>
+            `;
+          });
+          popupText += '</ul>';
+        }
+        markPoint.bindPopup(popupText);
         markPoint.on('contextmenu', (e: any) => { onMarkerLongClick(e) });
         markPoint.addTo(map);
       });
