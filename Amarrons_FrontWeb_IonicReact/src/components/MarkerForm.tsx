@@ -8,6 +8,8 @@ import Dropdown from './forms/Dropdown';
 import LoaderContext from '../hooks/useLoaderContext';
 import ErrorMessageContext from '../hooks/useErrorMessageContext';
 import { validSimpleRequiredTextInput } from '../utils/ValidForm';
+import { MarkerType } from '../models/marker-type.model';
+import { MarkerOption } from '../models/marker-option.model';
 
 export interface Props {
   position: any,
@@ -22,10 +24,10 @@ const MarkerForm: React.FC<Props> = (props) => {
   const [, setErrorMessage] = useContext(ErrorMessageContext);
 
   const [label, setLabel] = useState('');
-  const [markerTypes, setMarkerTypes] = useState([]);
+  const [markerTypes, setMarkerTypes] = useState([] as MarkerType[]);
   const [markerType, setMarkerType] = useState();
-  const [markerOptions, setMarkerOptions] = useState([]);
-  const [markerOptionSelected, setMarkerOptionSelected] = useState([]);
+  const [markerOptions, setMarkerOptions] = useState([] as MarkerOption[]);
+  const [markerOptionSelected, setMarkerOptionSelected] = useState([] as MarkerOption[]);
 
   const markerService = new MarkerService();
 

@@ -1,14 +1,14 @@
-import Axios from "axios"
+import Axios, { AxiosResponse } from "axios"
 
 // TODO gestion of the api_key
 export class BaseService {
 
-  static get(url: string) {
-    return Axios.get(process.env.REACT_APP_API_URL + url, { headers: { user_token: localStorage.getItem('user_token') } });
+  static get<T>(url: string): Promise<AxiosResponse<T>> {
+    return Axios.get<T>(process.env.REACT_APP_API_URL + url, { headers: { user_token: localStorage.getItem('user_token') } });
   }
 
-  static post(url: string, body: any) {
-    return Axios.post(process.env.REACT_APP_API_URL + url, body, { headers: { user_token: localStorage.getItem('user_token') } });
+  static post<T>(url: string, body: any): Promise<AxiosResponse<T>> {
+    return Axios.post<T>(process.env.REACT_APP_API_URL + url, body, { headers: { user_token: localStorage.getItem('user_token') } });
   }
 
 }

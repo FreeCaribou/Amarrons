@@ -1,11 +1,15 @@
+import { AxiosResponse } from 'axios';
 import * as Leaflet from 'leaflet';
 import { InternalErrorEnum } from '../models/enum/internal-error.enum';
 import { UserService } from '../services/users/user.service';
 
-export function FormatAxiosMock(data: any) {
+export function FormatAxiosMock(data: any): AxiosResponse {
   return {
     status: 200,
-    data
+    data,
+    statusText: '',
+    config: {},
+    headers: {}
   }
 }
 

@@ -1,9 +1,12 @@
+import { AxiosResponse } from "axios";
+import { MarkerType } from "../../models/marker-type.model";
+import { Marker } from "../../models/marker.model";
 import { FormatAxiosMock } from "../../utils/Utils"
 import { IMarker } from "./marker.interface-service";
 
 export class MarkerMockService implements IMarker {
 
-  GetMarkers = async (northEastLat: number, northEastLng: number, southWestLat: number, southWestLng: number) => {
+  GetMarkers(northEastLat: number, northEastLng: number, southWestLat: number, southWestLng: number): any {
     return FormatAxiosMock([
       {
         id: 1,
@@ -30,7 +33,7 @@ export class MarkerMockService implements IMarker {
     ]);
   }
 
-  GetMarkerTypes = async () => {
+  GetMarkerTypes(): any {
     return FormatAxiosMock([
       {
         id: 1,
@@ -45,11 +48,11 @@ export class MarkerMockService implements IMarker {
     ]);
   }
 
-  CreateMarker = async (marker: any) => {
+  CreateMarker(marker: Marker): any {
     return FormatAxiosMock({ todo: 'TODO' })
   }
 
-  GetMarkerOptions = async () => {
+  GetMarkerOptions(): any {
     return FormatAxiosMock([
       {
         id: 1,

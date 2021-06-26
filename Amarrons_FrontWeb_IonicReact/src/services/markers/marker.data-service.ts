@@ -1,21 +1,25 @@
 import { IMarker } from "./marker.interface-service";
 import { BaseService } from "../base.service";
+import { AxiosResponse } from "axios";
+import { MarkerType } from "../../models/marker-type.model";
+import { Marker } from "../../models/marker.model";
+import { MarkerOption } from "../../models/marker-option.model";
 
 export class MarkerDataService implements IMarker {
 
-  GetMarkers = async (northEastLat: number, northEastLng: number, southWestLat: number, southWestLng: number) => {
-    return await BaseService.get(`markers?northEastLat=${northEastLat}&northEastLng=${northEastLng}&southWestLat=${southWestLat}&southWestLng=${southWestLng}`);
+  GetMarkers(northEastLat: number, northEastLng: number, southWestLat: number, southWestLng: number): Promise<AxiosResponse<Marker[]>> {
+    return BaseService.get<Marker[]>(`markers?northEastLat=${northEastLat}&northEastLng=${northEastLng}&southWestLat=${southWestLat}&southWestLng=${southWestLng}`);
   }
 
-  GetMarkerTypes = async () => {
-    return await BaseService.get(`markers/types`);
+  GetMarkerTypes(): Promise<AxiosResponse<MarkerType[]>> {
+    return BaseService.get<MarkerType[]>(`markers/types`);
   }
 
-  CreateMarker = async (marker: any) => {
-    return await BaseService.post(`markers`, marker);
+  CreateMarker(marker: any): Promise<AxiosResponse<Marker>> {
+    return BaseService.post(`markers`, marker);
   }
 
-  GetMarkerOptions = async () => {
-    return await BaseService.get(`markers/options`);
+  GetMarkerOptions(): Promise<AxiosResponse<MarkerOption[]>> {
+    return BaseService.get(`markers/options`);
   }
 }

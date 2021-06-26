@@ -20,7 +20,7 @@ export class UserMockService implements IUser {
     token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUm9zYSIsInJvbGUiOnsiaWQiOjIsImNvZGUiOiIyIiwibGFiZWwiOiJtb2RvIn0sImlkIjozLCJpYXQiOjE2MDA3NjA1OTF9.yZBWmQY6b9rEdLqcsUnes8-dVVt3Yy5G3iCUXiHNt1c'
   })
 
-  Login = async (email: string, password: string) => {
+  Login(email: string, password: string): any {
     if (email === "samy@amarrons.com") {
       return this.returnAdminToken;
     } else if (email === "rluxemburg@amarrons.com") {
@@ -29,15 +29,15 @@ export class UserMockService implements IUser {
     return this.returnToken;
   }
 
-  SignUp = async (email: string, name: string, password: string) => {
+  SignUp(email: string, name: string, password: string): any {
     return this.returnToken;
   }
 
-  VerifyRight = async (authorizedRoles: string[]) => {
+  VerifyRight(authorizedRoles: string[]): any {
     return FormatAxiosMock({ isAuthorized: true });
   }
 
-  VerifyToken = async () => {
+  VerifyToken(): any {
     return FormatAxiosMock({
       isValid: true,
       token: this.adminToken
