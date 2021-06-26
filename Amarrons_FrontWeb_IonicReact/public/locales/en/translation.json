@@ -1,6 +1,7 @@
 {
   "General": {
     "Hello": "Hello",
+    "HelloName": "Hello {{name}}!",
     "Wait": "Please wait",
     "Language": "Language"
   },

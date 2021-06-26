@@ -79,7 +79,7 @@ const App: React.FC = () => {
         setIsLoading(true);
         const userService = new UserService();
         const result = (await userService.VerifyToken()).data;
-        if (result.isValid) {
+        if (result && result.isValid) {
           console.log('nice the token is good');
           let userLocalDecoded = await decodeJwt(result.token);
           userLocalDecoded.token = result.token;
@@ -173,6 +173,7 @@ const App: React.FC = () => {
                     {/* not perfect no match detection but limited with the doc */}
                     <Route component={MainMap} />
                   </IonRouterOutlet>
+
                   <IonTabBar slot="bottom">
                     <IonTabButton tab="map" href="/map">
                       <IonIcon icon={map} />
@@ -182,7 +183,7 @@ const App: React.FC = () => {
                       <IonIcon icon={settings} />
                       <IonLabel>{t("Nav.Settings")}</IonLabel>
                     </IonTabButton>
-                    <IonTabButton tab="admin" href="/admin" disabled={hasAdminAccess ? false : true} >
+                    <IonTabButton tab="admin" href="/admin" style={{ display: hasAdminAccess ? '' : 'none' }} >
                       <IonIcon icon={terminal} />
                       <IonLabel>{t("Nav.Admin")} </IonLabel>
                     </IonTabButton>
@@ -196,6 +197,7 @@ const App: React.FC = () => {
                       </IonTabButton>
                     } */}
                   </IonTabBar>
+
                 </IonTabs>
               </IonReactRouter>
               <IonToast
