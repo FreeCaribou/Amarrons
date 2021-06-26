@@ -12,9 +12,11 @@ import { add, locate, sync } from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import ErrorMessageContext from '../../hooks/useErrorMessageContext';
+import { MarkerTypeEnum } from '../../models/enum/marker-type.enum';
+import { Marker } from '../../models/marker.model';
+import { MarkerOption } from '../../models/marker-option.model';
 
 // TODO find an artist for better icon
-// TODO shop icon
 let anchorIcon = Leaflet.icon({
   iconUrl: '../../assets/icon/anchor-icon.png',
   iconSize: [50, 50], // size of the icon
@@ -30,7 +32,6 @@ let shopIcon = Leaflet.icon({
   iconSize: [50, 50], // size of the icon
 });
 
-// TODO find better icon for default
 let defaultIcon = Leaflet.icon({
   iconUrl: '../../assets/icon/default-icon.png',
   iconSize: [50, 50], // size of the icon
@@ -117,16 +118,16 @@ const MainMap: React.FC<RouteComponentProps> = ({ history }) => {
     // now we can load the new marker from the backend
     markerService.GetMarkers(bounds.getNorthEast().lat, bounds.getNorthEast().lng, bounds.getSouthWest().lat, bounds.getSouthWest().lng).then(data => {
       // form the marker on the map
-      data.data.forEach((e: any) => {
+      data.data.forEach((e: Marker) => {
         let icon;
         switch (e.markerType.code) {
-          case '1':
+          case MarkerTypeEnum.Port:
             icon = anchorIcon;
             break;
-          case '2':
+          case MarkerTypeEnum.View:
             icon = spyglassIcon;
             break;
-          case '3':
+          case MarkerTypeEnum.Shop:
             icon = shopIcon;
             break;
           default:
@@ -135,7 +136,6 @@ const MainMap: React.FC<RouteComponentProps> = ({ history }) => {
         }
         const markPoint = new DataMarker([e.lat, e.lng], { id: e.id }, { icon: icon });
         // TODO rework this part (code style and ui)
-        console.log('the markers', e);
         let popupText = `
           <h1>${e.label}</h1>
           <h2>${e.markerType.label}</h2>
@@ -143,7 +143,7 @@ const MainMap: React.FC<RouteComponentProps> = ({ history }) => {
         if (e.markerOptions && e.markerOptions.length > 0) {
           popupText += '<h3>Options:</h3>'
           popupText += '<ul>';
-          e.markerOptions.forEach((r: any) => {
+          e.markerOptions.forEach((r: MarkerOption) => {
             popupText += `
               <li>${r.label}</li>
             `;
