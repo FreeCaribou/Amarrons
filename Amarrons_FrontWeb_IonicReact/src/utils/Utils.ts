@@ -46,12 +46,19 @@ export async function customRouteGuard(roles: string[], setErrorMessage: any, hi
   const userService = new UserService();
   let isOk = true;
 
-  const result = (await userService.VerifyRight(roles)).data;
-  if (!result.isAuthorized) {
-    isOk = false;
+  try {
+    const result = (await userService.VerifyRight(roles)).data;
+
+    if (!result.isAuthorized) {
+      isOk = false;
+      setErrorMessage({ internal: InternalErrorEnum.NoRightToAccess });
+      history.replace('/options');
+      history.push('/options');
+    }
+
+  } catch (error) {
     setErrorMessage({ internal: InternalErrorEnum.NoRightToAccess });
-    history.replace('/options');
-    history.push('/options');
+    return false;
   }
 
   return isOk;

@@ -55,7 +55,13 @@ const MarkerForm: React.FC<Props> = (props) => {
 
   const clickAddButton = async () => {
     setIsLoading(true);
-    markerService.CreateMarker({ lat: props.position.lat, lng: props.position.lng, label: label, markerType: markerType }).then(data => {
+    markerService.CreateMarker({
+      lat: props.position.lat,
+      lng: props.position.lng,
+      label: label,
+      markerType: markerType,
+      markerOptions: markerOptionSelected
+    }).then(data => {
       setIsLoading(false);
       props.goBack();
     }).catch(error => {

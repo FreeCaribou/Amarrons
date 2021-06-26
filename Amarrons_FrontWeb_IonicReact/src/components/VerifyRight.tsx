@@ -19,7 +19,12 @@ const VerifyRight: React.FC<Props> = (props) => {
 
   useIonViewWillEnter(async () => {
     setIsLoading(true);
-    props.setIsOk(await customRouteGuard(props.roles, setErrorMessage, props.history));
+    const isOk = await customRouteGuard(props.roles, setErrorMessage, props.history);
+    console.log('have you the right?', isOk);
+    props.setIsOk(isOk);
+    if (!isOk) {
+      props.history.push(`/options`);
+    }
     setIsLoading(false);
   });
 

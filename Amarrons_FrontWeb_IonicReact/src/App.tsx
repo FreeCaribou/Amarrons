@@ -78,13 +78,18 @@ const App: React.FC = () => {
       if (userLocalStorage) {
         setIsLoading(true);
         const userService = new UserService();
-        const result = (await userService.VerifyToken()).data;
-        if (result && result.isValid) {
-          console.log('nice the token is good');
-          let userLocalDecoded = await decodeJwt(result.token);
-          userLocalDecoded.token = result.token;
-          setUser(userLocalDecoded);
+        try {
+          const result = (await userService.VerifyToken()).data;
+          if (result && result.isValid) {
+            console.log('nice the token is good');
+            let userLocalDecoded = await decodeJwt(result.token);
+            userLocalDecoded.token = result.token;
+            setUser(userLocalDecoded);
+          }
+        } catch (error) {
+
         }
+
         setIsLoading(false);
       }
 
