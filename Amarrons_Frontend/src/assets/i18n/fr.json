@@ -1,0 +1,10 @@
+{
+  "Nav": {
+    "VerifyRight": "Nous vérifions vos droits d'accès",
+    "Settings": "Paramètres",
+    "Map": "Carte",
+    "MainMap": "Carte principal",
+    "ManageMap": "Gérer la carte",
+    "Admin": "Admin"
+  }
+}

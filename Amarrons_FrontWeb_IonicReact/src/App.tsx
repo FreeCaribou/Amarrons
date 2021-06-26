@@ -62,6 +62,7 @@ const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null as any);
   const [currentLanguage, setCurrentLanguage] = useState('en' as any);
+  const [hasAdminAccess, setHasAdminAccess] = useState(false);
 
   // en, fr, de only for the moment because of the target audience
   // nl, no come later
@@ -101,6 +102,11 @@ const App: React.FC = () => {
 
   useEffect(() => {
     console.log('user?', user);
+    if (user) {
+      setHasAdminAccess(user.role.code === '3' || user.role.code === '2');
+    } else {
+      setHasAdminAccess(false);
+    }
   }, [user]);
 
   useEffect(() => {
@@ -144,14 +150,6 @@ const App: React.FC = () => {
     }
   }
 
-  const accessAdminZone: any = () => {
-    if (user) {
-      return user.role.code === '3' || user.role.code === '2';
-    } else {
-      return false;
-    }
-  }
-
   return (
     <UserContext.Provider value={[user, setUser]}>
       <LanguageContext.Provider value={[currentLanguage, setCurrentLanguage]}>
@@ -169,7 +167,9 @@ const App: React.FC = () => {
                     <Route path="/:tab(admin)/manage-unvalidated-marker" component={ManageUnvalidatedMarker} exact />
                     <Route path="/:tab(admin)/manage-user" component={ManageUser} exact />
 
-                    <Redirect from="/" to="/map" exact />
+                    {/* <Redirect from="/" to="/map" exact /> */}
+                    <Route exact path="/" render={() => <Redirect to="/map" />} />
+
                     {/* not perfect no match detection but limited with the doc */}
                     <Route component={MainMap} />
                   </IonRouterOutlet>
@@ -182,14 +182,14 @@ const App: React.FC = () => {
                       <IonIcon icon={settings} />
                       <IonLabel>{t("Nav.Settings")}</IonLabel>
                     </IonTabButton>
-                    <IonTabButton tab="admin" href="/admin" disabled={accessAdminZone() ? false : true} >
+                    <IonTabButton tab="admin" href="/admin" disabled={hasAdminAccess ? false : true} >
                       <IonIcon icon={terminal} />
                       <IonLabel>{t("Nav.Admin")} </IonLabel>
                     </IonTabButton>
 
                     {/* Have a bug with it, if we start the page at admin, the first tab (map) become also admin! */}
                     {/* {
-                      accessAdminZone() &&
+                      hasAdminAccess &&
                       <IonTabButton tab="admin" href="/admin" >
                         <IonIcon icon={terminal} />
                         <IonLabel>{t("Nav.Admin")} </IonLabel>

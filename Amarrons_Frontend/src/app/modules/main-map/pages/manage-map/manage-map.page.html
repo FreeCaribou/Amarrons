@@ -1,0 +1,54 @@
+<app-header [title]="'Menu.ManageMap' | translate" defaultHref='tabs/main-map'></app-header>
+<ion-content>
+  <div id="manageMapId" class="map"></div>
+</ion-content>
+<ion-content>
+
+  <ng-template #markerManageForm>
+    <form [formGroup]="markerForm">
+      <ion-grid>
+        <ion-row>
+          <ion-col size-xs="12" size-sm="6">
+            <ion-item>
+              <ion-label color="primary" position="floating">
+                {{"Marker.Label" | translate}}
+              </ion-label>
+              <ion-input clearInput type="text" formControlName="label" required></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size-xs="12" size-sm="6">
+            <ion-item>
+              <ion-label color="primary" position="floating">{{'Marker.MarkerType' | translate}}</ion-label>
+              <ion-select formControlName="markerType" interface="popover">
+                <ion-select-option *ngFor="let item of markerTypes" [value]="item">
+                  {{item.label}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size=12>
+            <ion-item>
+              <ion-label color="primary" position="floating">{{'Marker.MarkerOption' | translate}}</ion-label>
+              <ion-select formControlName="markerOptions" interface="popover" multiple="true">
+                <ion-select-option *ngFor="let item of markerOptions" [value]="item">
+                  {{item.label}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-button (click)="onEdit()" color="secondary" expand="block" [disabled]="!markerForm.valid">
+          {{'General.Add' | translate}}
+          <ion-icon slot="end" icon="pencil"></ion-icon>
+        </ion-button>
+      </ion-grid>
+    </form>
+  </ng-template>
+  <app-template-center-col [template]="markerManageForm"></app-template-center-col>
+
+</ion-content>

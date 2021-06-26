@@ -1,0 +1,34 @@
+<app-header [title]="'Menu.User' | translate"></app-header>
+<ion-content>
+
+  <ng-template #languageSelect>
+    <ion-grid>
+      <ion-item>
+        <ion-label>{{"User.SelectLanguage" | translate}}</ion-label>
+        <ion-select [value]="languageCommunication.selectedLanguage"
+          (ionChange)="languageCommunication.changeLanguage($event.detail.value)" interface="popover">
+          <ion-select-option value="en">English</ion-select-option>
+          <ion-select-option value="fr">Français</ion-select-option>
+          <ion-select-option value="nl">Nederlands</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-grid>
+  </ng-template>
+  <app-template-center-col [template]="languageSelect"></app-template-center-col>
+
+  <div *ngIf="!userCommunication.user">
+    <app-login></app-login>
+  </div>
+
+  <div *ngIf="userCommunication.user">
+    <ng-template #disconnect>
+      <ion-grid>
+        <ion-button color="danger" expand="block" (click)="onDisconnect()">
+          {{'User.Disconnect' | translate}}
+        </ion-button>
+      </ion-grid>
+    </ng-template>
+    <app-template-center-col [template]="disconnect"></app-template-center-col>
+  </div>
+
+</ion-content>

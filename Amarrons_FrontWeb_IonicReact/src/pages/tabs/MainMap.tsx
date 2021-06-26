@@ -117,7 +117,7 @@ const MainMap: React.FC<RouteComponentProps> = ({ history }) => {
         }
         const markPoint = new DataMarker([e.lat, e.lng], { id: e.id }, { icon: icon });
         // TODO better pop-up with the option
-        markPoint.bindPopup(`<p>${e.label}</p>`);
+        markPoint.bindPopup(`<p onClick={console.log(${e.label})} >${e.label}</p>`);
         markPoint.on('contextmenu', (e: any) => { onMarkerLongClick(e) });
         markPoint.addTo(map);
       });
