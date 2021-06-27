@@ -32,6 +32,15 @@ export class MarkersService {
     });
   }
 
+  async deleteOne(id: string) {
+    let marker = await this.markerRepository.findOne(id);
+    if (!marker) {
+      throw new HttpException({ message: ['The marker didn\'t exist'] }, HttpStatus.NOT_FOUND);
+    }
+    await this.markerRepository.delete(id);
+    return marker;
+  }
+
   async findAllInvalidated() {
     let markers = await this.markerRepository.find({
       relations: ['markerType', 'markerOptions', 'suggestedBy', 'validatedBy'],

@@ -1,4 +1,4 @@
-import { Controller, Get, Query, Body, Post, Headers, Put, Param } from '@nestjs/common';
+import { Controller, Get, Query, Body, Post, Headers, Put, Param, Delete } from '@nestjs/common';
 import { MarkersService } from './markers.service';
 import { MarkerPositionSearchDto } from './dto/marker-position-search.dto';
 import { Auth } from '../common/decorators/auth.decorator';
@@ -17,6 +17,12 @@ export class MarkersController {
   @Get()
   findAllValidated(@Query() markerPositionSearchDto: MarkerPositionSearchDto) {
     return this.markersService.findAllValidated(markerPositionSearchDto);
+  }
+
+  @Auth(RoleEnum.Modo, RoleEnum.Admin)
+  @Delete('/:id')
+  deleteOne(@Param('id') id: string) {
+    return this.markersService.deleteOne(id);
   }
 
   @Auth(RoleEnum.Modo, RoleEnum.Admin)
