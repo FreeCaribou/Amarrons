@@ -69,9 +69,10 @@ export class MarkersService {
   // Role 0 or 1, create proposal marker
   // Role 2 or 3, create marker
   async create(createMarkerDto: CreateMarkerDto, userToken) {
+    await this.verifyMarkerTypeExistence(createMarkerDto.markerType);
+    await this.verifyMarkerOptionsExistence(createMarkerDto.markerOptions);
     const jwt = require('jsonwebtoken');
     const user = jwt.verify(userToken, process.env.JWT_SECURITY_KEY);
-    console.log(user);
     createMarkerDto.suggestedBy = user;
     if (user.role.code == '2' || user.role.code == '3') {
       createMarkerDto.validatedBy = user;
@@ -80,11 +81,35 @@ export class MarkersService {
     return this.markerRepository.save(marker);
   }
 
-  async validateMarker(id: string, userToken) {
+  // Role 0 or 1, can update his own marker
+  // Role 2 or 3, can update all marker
+  async updateOne(id: string, createMarkerDto: CreateMarkerDto, userToken) {
+    await this.verifyMarkerTypeExistence(createMarkerDto.markerType);
+    await this.verifyMarkerOptionsExistence(createMarkerDto.markerOptions);
+    let marker = await this.markerRepository.findOne(id, { relations: ['markerType', 'markerOptions', 'suggestedBy'] });
+    if (!marker) {
+      throw new HttpException({ message: ['The marker didn\'t exist'] }, HttpStatus.NOT_FOUND);
+    }
     const jwt = require('jsonwebtoken');
     const user = jwt.verify(userToken, process.env.JWT_SECURITY_KEY);
 
-    console.log(user);
+    // we verify that the user is the owner or a modo or an admin
+    if (user.role.code != '2' && user.role.code != '3' && user.id != marker.suggestedBy.id) {
+      throw new HttpException({ message: ['This isn\'t your marker and you are not modo'] }, HttpStatus.NOT_FOUND);
+    }
+    let markerUpdated = {
+      ...createMarkerDto,
+      id: marker.id,
+    }
+    marker = markerUpdated;
+
+    await this.markerRepository.save(marker);
+    return marker = await this.markerRepository.findOne(id, { relations: ['markerType', 'markerOptions'] });
+  }
+
+  async validateMarker(id: string, userToken) {
+    const jwt = require('jsonwebtoken');
+    const user = jwt.verify(userToken, process.env.JWT_SECURITY_KEY);
 
     let marker = await this.markerRepository.findOne(id);
     if (!marker) {
@@ -100,6 +125,24 @@ export class MarkersService {
 
   findAllMarkerOptions() {
     return this.markerOptionRepository.find();
+  }
+
+  async verifyMarkerTypeExistence(markerType: MarkerType) {
+    const markerTypeToFind = await this.markerTypeRepository.findOne(markerType.id);
+    if (!markerTypeToFind) {
+      throw new HttpException({ message: ['This marker type didn\'t exist'] }, HttpStatus.NOT_FOUND);
+    }
+  }
+
+  async verifyMarkerOptionsExistence(markerOptions: MarkerOption[]) {
+    if (markerOptions) {
+      for (const e of markerOptions) {
+        const markerOption = await this.markerOptionRepository.findOne(e.id);
+        if (!markerOption) {
+          throw new HttpException({ message: ['This marker option didn\'t exist'] }, HttpStatus.NOT_FOUND);
+        }
+      }
+    }
   }
 
 }

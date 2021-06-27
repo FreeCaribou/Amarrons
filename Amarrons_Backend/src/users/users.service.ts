@@ -26,9 +26,7 @@ export class UsersService {
   async signUp(signUpUserDto: SignUpUserDto) {
     // verify not double email
     const findOneByEmail = await this.findUserByEmail(signUpUserDto.email);
-    console.log(findOneByEmail);
     if (findOneByEmail) {
-      console.log('hoho there is yet one with the same email');
       // TODO the message
       throw new HttpException({ message: ['Email already in use'] }, HttpStatus.BAD_REQUEST);
     }

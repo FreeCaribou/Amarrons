@@ -31,7 +31,6 @@ export class AuthGuard implements CanActivate {
       return true;
     }
 
-    console.log('auth? coucou!', roles, user);
     throw new HttpException({ message: ['You don\'t have the right role to use it.'] }, HttpStatus.UNAUTHORIZED);
     return false;
   }

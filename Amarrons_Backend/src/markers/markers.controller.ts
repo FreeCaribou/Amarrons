@@ -46,8 +46,13 @@ export class MarkersController {
   @Auth(RoleEnum.Connected)
   @Post()
   create(@Body() createMarkerDto: CreateMarkerDto, @Headers() header) {
-    console.log(header);
     return this.markersService.create(createMarkerDto, header.user_token);
+  }
+
+  @Auth(RoleEnum.Connected)
+  @Put('/:id')
+  updateOne(@Param('id') id: string, @Body() createMarkerDto: CreateMarkerDto, @Headers() header) {
+    return this.markersService.updateOne(id, createMarkerDto, header.user_token);
   }
 
   @Auth(RoleEnum.Connected)
