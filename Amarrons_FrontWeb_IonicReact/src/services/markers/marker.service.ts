@@ -28,4 +28,12 @@ export class MarkerService implements IMarker {
   GetOneMarker(id: string): Promise<AxiosResponse<Marker>> {
     return this.markerService.GetOneMarker(id);
   }
+
+  DeleteOneMarker(id: string): Promise<AxiosResponse<Marker>> {
+    return this.markerService.DeleteOneMarker(id);
+  }
+
+  UpdateMarker(marker: any, id: string): Promise<AxiosResponse<Marker>> {
+    return this.markerService.UpdateMarker(marker, id);
+  }
 }

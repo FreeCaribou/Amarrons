@@ -1,24 +1,24 @@
-import { AxiosResponse } from "axios";
-import { MarkerType } from "../../models/marker-type.model";
 import { Marker } from "../../models/marker.model";
 import { FormatAxiosMock } from "../../utils/Utils"
 import { IMarker } from "./marker.interface-service";
 
 export class MarkerMockService implements IMarker {
 
+  markerMockOne = {
+    id: 1,
+    label: "Cinquantenaire",
+    lat: 50.840255,
+    lng: 4.394491,
+    markerType: {
+      id: 1,
+      code: "1",
+      label: "Port"
+    }
+  };
+
   GetMarkers(northEastLat: number, northEastLng: number, southWestLat: number, southWestLng: number): any {
     return FormatAxiosMock([
-      {
-        id: 1,
-        label: "Cinquantenaire",
-        lat: 50.840255,
-        lng: 4.394491,
-        markerType: {
-          id: 1,
-          code: "1",
-          label: "Port"
-        }
-      },
+      this.markerMockOne,
       {
         id: 2,
         label: "Le Berlaymont",
@@ -49,7 +49,7 @@ export class MarkerMockService implements IMarker {
   }
 
   CreateMarker(marker: Marker): any {
-    return FormatAxiosMock({ todo: 'TODO' })
+    return FormatAxiosMock(this.markerMockOne);
   }
 
   GetMarkerOptions(): any {
@@ -68,17 +68,15 @@ export class MarkerMockService implements IMarker {
   }
 
   GetOneMarker(id: string): any {
-    return FormatAxiosMock({
-      id: 1,
-      label: "Cinquantenaire",
-      lat: 50.840255,
-      lng: 4.394491,
-      markerType: {
-        id: 1,
-        code: "1",
-        label: "Port"
-      }
-    })
+    return FormatAxiosMock(this.markerMockOne);
+  }
+
+  DeleteOneMarker(id: string): any {
+    return FormatAxiosMock(this.markerMockOne);
+  }
+
+  UpdateMarker(marker: Marker, id: string): any {
+    return FormatAxiosMock(this.markerMockOne);
   }
 
 }

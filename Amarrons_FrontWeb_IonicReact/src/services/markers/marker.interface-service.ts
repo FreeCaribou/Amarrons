@@ -9,4 +9,6 @@ export interface IMarker {
   CreateMarker(marker: Marker): Promise<AxiosResponse<Marker>>;
   GetMarkerOptions(): Promise<AxiosResponse<MarkerOption[]>>;
   GetOneMarker(id: string): Promise<AxiosResponse<Marker>>;
+  DeleteOneMarker(id: string): Promise<AxiosResponse<Marker>>;
+  UpdateMarker(marker: Marker, id: string): Promise<AxiosResponse<Marker>>;
 }

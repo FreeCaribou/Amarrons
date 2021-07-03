@@ -348,6 +348,32 @@
 					"response": []
 				},
 				{
+					"name": "Find One Marker",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_token",
+								"value": "{{user-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:1444/markers/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1444",
+							"path": [
+								"markers",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Find All Marker Types",
 					"request": {
 						"method": "GET",
@@ -359,7 +385,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:1444/markers/types",
+							"raw": "http://localhost:1444/markers/params/types",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -367,6 +393,7 @@
 							"port": "1444",
 							"path": [
 								"markers",
+								"params",
 								"types"
 							],
 							"query": [
@@ -375,6 +402,33 @@
 									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FteSIsInJvbGUiOnsiaWQiOjEsImNvZGUiOiIxIiwibGFiZWwiOiJzaW1wbGUtdXNlciJ9LCJpZCI6NywiaWF0IjoxNTk4Njg4NTEyfQ.NN_3V3ELwJOJLOHKQijbBsuKFW7uGkflZoMX1n7ellk",
 									"disabled": true
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All Marker Options",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_token",
+								"value": "{{admin-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:1444/markers/params/options",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1444",
+							"path": [
+								"markers",
+								"params",
+								"options"
 							]
 						}
 					},
@@ -415,32 +469,6 @@
 					"response": []
 				},
 				{
-					"name": "Find All Marker Options",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "user_token",
-								"value": "{{admin-token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:1444/markers/options",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "1444",
-							"path": [
-								"markers",
-								"options"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Update Validate Marker",
 					"request": {
 						"method": "PUT",
@@ -462,6 +490,67 @@
 								"markers",
 								"modo",
 								"validate",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Marker",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "user_token",
+								"value": "{{admin-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:1444/markers/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1444",
+							"path": [
+								"markers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Marker",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "user_token",
+								"value": "{{admin-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"label\": \"Cinquantenairekeleleaaa\",\r\n    \"lat\": 50.840255,\r\n    \"lng\": 4.394491,\r\n    \"markerType\": {\r\n        \"id\": 2\r\n    },\r\n    \"markerOptions\": [\r\n        {\r\n            \"id\": 2\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1444/markers/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1444",
+							"path": [
+								"markers",
 								"2"
 							]
 						}

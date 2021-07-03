@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
 import * as Leaflet from 'leaflet';
+import { CodeLabel } from '../models/code-labe.model';
 import { InternalErrorEnum } from '../models/enum/internal-error.enum';
 import { UserService } from '../services/users/user.service';
 

@@ -26,4 +26,12 @@ export class MarkerDataService implements IMarker {
   GetOneMarker(id: string): Promise<AxiosResponse<Marker>> {
     return BaseService.get(`markers/${id}`);
   }
+
+  DeleteOneMarker(id: string): Promise<AxiosResponse<Marker>> {
+    return BaseService.delete(`markers/${id}`);
+  }
+
+  UpdateMarker(marker: any, id: string): Promise<AxiosResponse<Marker>> {
+    return BaseService.put(`markers/${id}`, marker);
+  }
 }

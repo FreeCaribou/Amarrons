@@ -28,7 +28,9 @@
     "MarkerType": "Marker type",
     "PleaseSelectOne": "Please select one option",
     "MarkerOptions": "Marker options",
-    "PleaseSelectOneOrMany": "Please select one or more option"
+    "PleaseSelectOneOrMany": "Please select one or more option",
+    "Delete": "Delete",
+    "Update": "Update"
   },
   "Error": {
     "NoConnectedOrRole": "You must be connected or have the right role.",

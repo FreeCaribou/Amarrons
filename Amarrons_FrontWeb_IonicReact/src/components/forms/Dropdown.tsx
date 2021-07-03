@@ -12,7 +12,8 @@ interface Props {
   required?: boolean,
   isValid?: boolean,
   errorMessage?: string
-  multiple?: boolean
+  multiple?: boolean,
+  compareWith?: any
 }
 
 // TODO name in IonIput, verify no space and replace it with underscore
@@ -30,12 +31,21 @@ const Dropdown: React.FC<Props> = (props) => {
     }
   }
 
+  type C = typeof props.options[number];
+
+  const compareWithDropdownCodeLabel = (a: C, b: C) => {
+    if (Array.isArray(b)) {
+      return b.findIndex(x => x.code == a.code) > -1;
+    }
+    return a && b ? a.code == b.code : a == b;
+  }
+
   return (
     <div>
       <IonItem className={showErrorMessage() && 'input-error'}>
         <IonLabel position="floating">{props.name} {props.required && '*'}</IonLabel>
-        <IonSelect value={props.value} placeholder={props.multiple ? t("Form.PleaseSelectOneOrMany") : t("Form.PleaseSelectOne")} onIonChange={e => props.setValue(e.detail.value! as any)}
-          name={props.name} onIonBlur={e => setHasBlur(true)} interface={'popover'} multiple={props.multiple}>
+        <IonSelect compareWith={compareWithDropdownCodeLabel} value={props.value} placeholder={props.multiple ? t("Form.PleaseSelectOneOrMany") : t("Form.PleaseSelectOne")} onIonChange={e => props.setValue(e.detail.value! as any)}
+          name={props.name} onIonBlur={e => setHasBlur(true)} interface={props.multiple ? 'alert' : 'popover'} multiple={props.multiple}>
           {
             props.options.map((e: CodeLabel) => (
               <IonSelectOption key={e.code} value={e}>
