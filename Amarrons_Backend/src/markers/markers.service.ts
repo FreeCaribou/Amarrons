@@ -67,7 +67,7 @@ export class MarkersService {
     }
 
     // We cannot for the moment do more specify select with TypeORM
-    return deleteSensitiveDataFromMarker([marker]);
+    return deleteSensitiveDataFromMarker([marker])[0];
   }
 
   async findAllInvalidated() {

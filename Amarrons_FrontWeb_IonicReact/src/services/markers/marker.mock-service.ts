@@ -67,4 +67,18 @@ export class MarkerMockService implements IMarker {
     ]);
   }
 
+  GetOneMarker(id: string): any {
+    return FormatAxiosMock({
+      id: 1,
+      label: "Cinquantenaire",
+      lat: 50.840255,
+      lng: 4.394491,
+      markerType: {
+        id: 1,
+        code: "1",
+        label: "Port"
+      }
+    })
+  }
+
 }

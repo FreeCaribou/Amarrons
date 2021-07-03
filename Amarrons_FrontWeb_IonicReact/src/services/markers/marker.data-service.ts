@@ -12,7 +12,7 @@ export class MarkerDataService implements IMarker {
   }
 
   GetMarkerTypes(): Promise<AxiosResponse<MarkerType[]>> {
-    return BaseService.get<MarkerType[]>(`markers/types`);
+    return BaseService.get<MarkerType[]>(`markers/params/types`);
   }
 
   CreateMarker(marker: any): Promise<AxiosResponse<Marker>> {
@@ -20,6 +20,10 @@ export class MarkerDataService implements IMarker {
   }
 
   GetMarkerOptions(): Promise<AxiosResponse<MarkerOption[]>> {
-    return BaseService.get(`markers/options`);
+    return BaseService.get(`markers/params/options`);
+  }
+
+  GetOneMarker(id: string): Promise<AxiosResponse<Marker>> {
+    return BaseService.get(`markers/${id}`);
   }
 }

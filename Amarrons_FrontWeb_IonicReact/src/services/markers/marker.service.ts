@@ -24,4 +24,8 @@ export class MarkerService implements IMarker {
   GetMarkerOptions(): Promise<AxiosResponse<MarkerOption[]>> {
     return this.markerService.GetMarkerOptions();
   }
+
+  GetOneMarker(id: string): Promise<AxiosResponse<Marker>> {
+    return this.markerService.GetOneMarker(id);
+  }
 }

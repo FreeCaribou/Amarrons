@@ -56,7 +56,7 @@ const ManageMap: React.FC<Props> = ({ match, history }) => {
         </div>
       </IonContent>
       <IonContent>
-        <MarkerForm position={{ lat, lng }} goBack={goBack} />
+        <MarkerForm position={{ lat, lng }} id={match.params.id} goBack={goBack} />
       </IonContent>
     </IonPage>
   );

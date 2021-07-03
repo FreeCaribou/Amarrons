@@ -14,6 +14,7 @@ import { MarkerOption } from '../models/marker-option.model';
 export interface Props {
   position: any,
   goBack(): void
+  id?: string
 }
 
 const MarkerForm: React.FC<Props> = (props) => {
@@ -32,15 +33,21 @@ const MarkerForm: React.FC<Props> = (props) => {
   const markerService = new MarkerService();
 
   useIonViewDidEnter(async () => {
+    console.log('marker form', props.id)
     setIsLoading(true);
-    Promise.all([markerService.GetMarkerTypes(), markerService.GetMarkerOptions()]).then(data => {
-      setMarkerTypes(data[0].data);
-      setMarkerOptions(data[1].data);
-    }).catch((error) => {
-      setErrorMessage(error.response);
-    }).finally(() => {
-      setIsLoading(false);
-    });
+    Promise.all([
+      markerService.GetMarkerTypes(),
+      markerService.GetMarkerOptions(),
+      props.id ? markerService.GetOneMarker(props.id) : null])
+      .then(data => {
+        console.log(data);
+        setMarkerTypes(data[0].data);
+        setMarkerOptions(data[1].data);
+      }).catch((error) => {
+        setErrorMessage(error.response);
+      }).finally(() => {
+        setIsLoading(false);
+      });
   });
 
   const validLabel = () => {
