@@ -8,6 +8,7 @@ import { CreateMarkerDto } from './dto/create-marker.dto';
 import { MarkerOption } from './entities/marker-option.entity';
 import { deleteSensitiveDataFromMarker } from '../common/utils';
 
+// TODO re use function?
 @Injectable()
 export class MarkersService {
 
@@ -32,13 +33,41 @@ export class MarkersService {
     });
   }
 
-  async deleteOne(id: string) {
+  async deleteOne(id: string, userToken) {
     let marker = await this.markerRepository.findOne(id);
     if (!marker) {
       throw new HttpException({ message: ['The marker didn\'t exist'] }, HttpStatus.NOT_FOUND);
     }
+
+    const jwt = require('jsonwebtoken');
+    const user = jwt.verify(userToken, process.env.JWT_SECURITY_KEY);
+    // we verify that the user is the owner or a modo or an admin
+    if (user.role.code != '2' && user.role.code != '3' && user.id != marker.suggestedBy.id) {
+      throw new HttpException({ message: ['This isn\'t your marker and you are not modo'] }, HttpStatus.NOT_FOUND);
+    }
+
     await this.markerRepository.delete(id);
     return marker;
+  }
+
+  async findOne(id: string, userToken) {
+    let marker = await this.markerRepository.findOne(id, {
+      relations: ['markerType', 'markerOptions', 'suggestedBy', 'validatedBy'],
+    });
+
+    if (!marker) {
+      throw new HttpException({ message: ['The marker didn\'t exist'] }, HttpStatus.NOT_FOUND);
+    }
+
+    const jwt = require('jsonwebtoken');
+    const user = jwt.verify(userToken, process.env.JWT_SECURITY_KEY);
+    // we verify that the user is the owner or a modo or an admin
+    if (user.role.code != '2' && user.role.code != '3' && user.id != marker.suggestedBy.id) {
+      throw new HttpException({ message: ['This isn\'t your marker and you are not modo'] }, HttpStatus.NOT_FOUND);
+    }
+
+    // We cannot for the moment do more specify select with TypeORM
+    return deleteSensitiveDataFromMarker([marker]);
   }
 
   async findAllInvalidated() {
@@ -90,9 +119,9 @@ export class MarkersService {
     if (!marker) {
       throw new HttpException({ message: ['The marker didn\'t exist'] }, HttpStatus.NOT_FOUND);
     }
+
     const jwt = require('jsonwebtoken');
     const user = jwt.verify(userToken, process.env.JWT_SECURITY_KEY);
-
     // we verify that the user is the owner or a modo or an admin
     if (user.role.code != '2' && user.role.code != '3' && user.id != marker.suggestedBy.id) {
       throw new HttpException({ message: ['This isn\'t your marker and you are not modo'] }, HttpStatus.NOT_FOUND);

@@ -19,10 +19,16 @@ export class MarkersController {
     return this.markersService.findAllValidated(markerPositionSearchDto);
   }
 
-  @Auth(RoleEnum.Modo, RoleEnum.Admin)
+  @Auth(RoleEnum.Connected)
+  @Get('/:id')
+  findOne(@Param('id') id: string, @Headers() header) {
+    return this.markersService.findOne(id, header.user_token);
+  }
+
+  @Auth(RoleEnum.Connected)
   @Delete('/:id')
-  deleteOne(@Param('id') id: string) {
-    return this.markersService.deleteOne(id);
+  deleteOne(@Param('id') id: string, @Headers() header) {
+    return this.markersService.deleteOne(id, header.user_token);
   }
 
   @Auth(RoleEnum.Modo, RoleEnum.Admin)

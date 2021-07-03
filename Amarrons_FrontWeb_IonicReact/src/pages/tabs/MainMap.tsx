@@ -6,7 +6,7 @@ import { DataMarker } from '../../models/data-marker.models';
 import { MarkerService } from '../../services/markers/marker.service';
 import UserContext from '../../hooks/useUserContext';
 import { RouteComponentProps } from 'react-router';
-import { createMap } from '../../utils/Utils';
+import { createMap, isModo } from '../../utils/Utils';
 import { useTranslation } from 'react-i18next';
 import { add, locate, sync } from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
@@ -205,9 +205,12 @@ const MainMap: React.FC<RouteComponentProps> = ({ history }) => {
     loadMarker();
   }
 
-  // TODO with some role, do some thing, go tu update mode
-  const onMarkerLongClick: any = (e: any) => {
-    console.log(`long click marker ${e.target.data.id} to modify if right role`, e);
+  const onMarkerLongClick: any = async (e: any) => {
+    const canUpdate = await isModo();
+    console.log(`long click marker ${e.target.data.id} to modify if right role`, e, canUpdate);
+    if (canUpdate) {
+      history.push(`/map/update-marker/${e.latlng.lat}/${e.latlng.lng}/${map.getZoom()}/1/${e.target.data.id}`);
+    }
   }
 
   const onGpsFabClick: any = () => {
