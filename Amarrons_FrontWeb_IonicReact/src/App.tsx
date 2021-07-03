@@ -166,7 +166,8 @@ const App: React.FC = () => {
                 <IonTabs>
                   <IonRouterOutlet>
                     <Route path="/:tab(map)" component={MainMap} exact />
-                    <Route path="/:tab(map)/new-marker/:lat/:lng/:zoom/:point" component={ManageMap} />
+                    <Route path="/:tab(map)/new-marker/:lat/:lng/:zoom/:point" component={ManageMap} exact />
+                    <Route path="/:tab(map)/update-marker/:lat/:lng/:zoom/:point/:id" component={ManageMap} exact />
                     <Route path="/:tab(options)" component={Settings} exact />
                     <Route path="/:tab(admin)" component={Admin} exact />
                     <Route path="/:tab(admin)/manage-unvalidated-marker" component={ManageUnvalidatedMarker} exact />

@@ -62,13 +62,13 @@ export class MarkersController {
   }
 
   @Auth(RoleEnum.Connected)
-  @Get('/types')
+  @Get('/params/types')
   findAllMarkerTypes() {
     return this.markersService.findAllMarkerTypes();
   }
 
   @Auth(RoleEnum.Connected)
-  @Get('/options')
+  @Get('/params/options')
   findAllMarkerOptions() {
     return this.markersService.findAllMarkerOptions();
   }

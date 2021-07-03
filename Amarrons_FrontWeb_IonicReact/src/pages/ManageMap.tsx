@@ -11,7 +11,8 @@ interface Props extends RouteComponentProps<{
   lat: string;
   lng: string;
   zoom: string;
-  point: string; // 0 to say no we don't want to begin with marker - 1 to say yes
+  point: string; // 0 to say no we don't want to begin with marker / 1 to say yes
+  id?: string;
 }> { }
 
 // TODO can move (or create) the new point
@@ -25,6 +26,7 @@ const ManageMap: React.FC<Props> = ({ match, history }) => {
   let map: Leaflet.Map;
 
   useIonViewDidEnter(() => {
+    console.log(match.params);
     if (!map) {
       map = createMap("manageMapId", +match.params.lat, +match.params.lng, +match.params.zoom);
       if (match.params.point === '1') {
