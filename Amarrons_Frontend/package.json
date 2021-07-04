@@ -1,7 +1,8 @@
 {
   "name": "amarrons_frontweb_ionicreact",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "author": "FreeCaribou",
+  "license": "GPL-3.0",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -79,5 +80,5 @@
     "@ionic/app-scripts": "^3.2.4",
     "@testing-library/react": "^9.5.0"
   },
-  "description": "An Ionic project"
+  "description": "An React Ionic project to manage mooring points on a map"
 }

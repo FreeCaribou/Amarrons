@@ -1,10 +1,9 @@
 {
   "name": "amarrons_backend",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
-  "private": true,
-  "license": "UNLICENSED",
+  "version": "1.0.0",
+  "description": "An React Ionic project to manage mooring points on a map",
+  "author": "FreeCaribou",
+  "license": "GPL-3.0",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
