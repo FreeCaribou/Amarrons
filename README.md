@@ -1,6 +1,7 @@
 # Amarrons
 
 A map web-mobile application to navigate the waterways and see the mooring points.
+[The web app](https://amarrons.com)
 
 
 
@@ -11,4 +12,4 @@ A map web-mobile application to navigate the waterways and see the mooring point
 
 
 ## API Doc
-[Swagger](https://amarrons-backend.herokuapp.com/api/).
+[Swagger](https://amarrons.com/api/)
