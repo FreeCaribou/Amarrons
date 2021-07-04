@@ -1,7 +1,0 @@
-{
-  "name": "Amarrons",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "react"
-}
