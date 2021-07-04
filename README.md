@@ -14,9 +14,9 @@ It was an opportunity for me to dive more into backend (I'm a frontend dev in my
 
 ## Screenshot
 
-![alt marker-create](http://data.gerardweb.eu/amarrons/pictures/marker-create.png)
-![alt marker-view](http://data.gerardweb.eu/amarrons/pictures/marker-view.png)
-![alt big-view](http://data.gerardweb.eu/amarrons/pictures/big-view.png)
+<img src="http://data.gerardweb.eu/amarrons/pictures/marker-create.png" alt="marker-create" height="200"/>
+<img src="http://data.gerardweb.eu/amarrons/pictures/marker-view.png" alt="marker-view" height="200"/>
+<img src="http://data.gerardweb.eu/amarrons/pictures/big-view.png" alt="big-view" height="200"/>
 
 
 
